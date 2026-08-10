@@ -4,26 +4,26 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRES_DB: mitti_exporter_db
-      POSTGRES_USER: mitti_exporter
-      POSTGRES_PASSWORD: mitti_exporter
+      POSTGRES_DB: safetyculture_exporter_db
+      POSTGRES_USER: safetyculture_exporter
+      POSTGRES_PASSWORD: safetyculture_exporter
     ports:
       - 5434:5432
 
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: mitti_exporter
-      MYSQL_DATABASE: mitti_exporter_db
-      MYSQL_USER: mitti_exporter
-      MYSQL_PASSWORD: mitti_exporter
+      MYSQL_ROOT_PASSWORD: safetyculture_exporter
+      MYSQL_DATABASE: safetyculture_exporter_db
+      MYSQL_USER: safetyculture_exporter
+      MYSQL_PASSWORD: safetyculture_exporter
     ports:
       - 3308:3306
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server
     environment:
-      SA_PASSWORD: "MittiExporter12345"
+      SA_PASSWORD: "SafetyCultureExporter12345"
       ACCEPT_EULA: "Y"
     ports:
       - 1433:1433

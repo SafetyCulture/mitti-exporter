@@ -8,15 +8,15 @@ help:
 
 .PHONY: integration-tests
 integration-tests:
-	TEST_DB_DIALECT="postgres" TEST_DB_CONN_STRING="postgresql://mitti_exporter:mitti_exporter@localhost:5434/mitti_exporter_db" go test ./... -tags=sql
-	TEST_DB_DIALECT="mysql" TEST_DB_CONN_STRING="root:mitti_exporter@tcp(localhost:3308)/mitti_exporter_db?charset=utf8mb4&parseTime=True&loc=Local" go test ./... -tags=sql
-	TEST_DB_DIALECT="sqlserver" TEST_DB_CONN_STRING="sqlserver://sa:MittiExporter12345@localhost:1433?database=master" go test ./... -tags=sql
+	TEST_DB_DIALECT="postgres" TEST_DB_CONN_STRING="postgresql://safetyculture_exporter:safetyculture_exporter@localhost:5434/safetyculture_exporter_db" go test ./... -tags=sql
+	TEST_DB_DIALECT="mysql" TEST_DB_CONN_STRING="root:safetyculture_exporter@tcp(localhost:3308)/safetyculture_exporter_db?charset=utf8mb4&parseTime=True&loc=Local" go test ./... -tags=sql
+	TEST_DB_DIALECT="sqlserver" TEST_DB_CONN_STRING="sqlserver://sa:SafetyCultureExporter12345@localhost:1433?database=master" go test ./... -tags=sql
 
 .PHONY: soak-tests
 soak-tests:
-	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="postgres" TEST_DB_CONN_STRING="postgresql://mitti_exporter:mitti_exporter@localhost:5434/mitti_exporter_db" go test ./... -tags=soak
-	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="mysql" TEST_DB_CONN_STRING="root:mitti_exporter@tcp(localhost:3308)/mitti_exporter_db?charset=utf8mb4&parseTime=True&loc=Local" go test ./... -tags=soak
-	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="sqlserver" TEST_DB_CONN_STRING="sqlserver://sa:MittiExporter12345@localhost:1433?database=master" go test ./... -tags=soak
+	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="postgres" TEST_DB_CONN_STRING="postgresql://safetyculture_exporter:safetyculture_exporter@localhost:5434/safetyculture_exporter_db" go test ./... -tags=soak
+	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="mysql" TEST_DB_CONN_STRING="root:safetyculture_exporter@tcp(localhost:3308)/safetyculture_exporter_db?charset=utf8mb4&parseTime=True&loc=Local" go test ./... -tags=soak
+	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="sqlserver" TEST_DB_CONN_STRING="sqlserver://sa:SafetyCultureExporter12345@localhost:1433?database=master" go test ./... -tags=soak
 	TEST_API_HOST="https://api.safetyculture.io" TEST_DB_DIALECT="sqlite" TEST_DB_CONN_STRING="file::memory:" go test ./... -tags=soak
 
 .PHONY: start-local-mssql
