@@ -2,5 +2,5 @@
 FROM alpine
 VOLUME /export
 VOLUME /config
-ENTRYPOINT ["./safetyculture-exporter"]
-COPY safetyculture-exporter /
+ENTRYPOINT ["./mitti-exporter"]
+COPY mitti-exporter /

@@ -20,29 +20,29 @@
 
 <style>
     .input-error {
-        border-color: #9b3d41!important;
+        border-color: #B02010!important;
     }
 
     .input-error-block {
         font-size: 0.7rem;
-        color: #A02228;
+        color: #B02010;
     }
 
     .input-error-title {
-        color: #A02228;
+        color: #B02010;
     }
 
     .input-error::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: #9b3d41;
+        color: #B02010;
         opacity: 1; /* Firefox */
     }
 
     .input-error:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: #9b3d41;
+        color: #B02010;
     }
 
     .input-error::-ms-input-placeholder { /* Microsoft Edge */
-        color: #9b3d41;
+        color: #B02010;
     }
 
     .form-input {

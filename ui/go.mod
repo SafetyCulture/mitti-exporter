@@ -1,11 +1,11 @@
-module github.com/SafetyCulture/safetyculture-exporter-ui
+module github.com/SafetyCulture/mitti-exporter-ui
 
 go 1.23
 
 toolchain go1.24.4
 
 require (
-	github.com/SafetyCulture/safetyculture-exporter v0.0.0
+	github.com/SafetyCulture/mitti-exporter v0.0.0
 	github.com/hashicorp/go-version v1.9.0
 	github.com/minio/selfupdate v0.6.0
 	github.com/stretchr/testify v1.11.1
@@ -86,4 +86,4 @@ require (
 	gorm.io/gorm v1.25.12 // indirect
 )
 
-replace github.com/SafetyCulture/safetyculture-exporter => ../cli
+replace github.com/SafetyCulture/mitti-exporter => ../cli

@@ -44,8 +44,8 @@
     
 </script>
 <div class="update-page">
-    <img id="update-page-logo" class="p-top-32" src="../images/logo.svg" alt="SafetyCulture logo"/>
-    <div class="h1">SafetyCulture Exporter Updater</div>
+    <img id="update-page-logo" class="p-top-32" src="../images/logo.svg" alt="Mitti logo"/>
+    <div class="h1">Mitti Exporter Updater</div>
     
     <div class="middle">
         {#if updateStatus === 'updating'}
@@ -61,7 +61,7 @@
         <div class="h3 p-top-64">{updateMessage}</div>
         {#if updateStatus === 'failed'}
             {#if $latestVersion['os'] === 'darwin'}
-                <div class="p-top-8">SafetyCulture Exporter must be moved into the Applications folder in order for the auto-update to work</div>
+                <div class="p-top-8">Mitti Exporter must be moved into the Applications folder in order for the auto-update to work</div>
             {/if}   
             <div class="download-alert p-top-8" on:click={openURL($latestVersion['download_url'])} on:keydown={openURL($latestVersion['download_url'])}>
                 You can manually download and install the Exporter
@@ -110,6 +110,6 @@
         font-size: 0.9rem;
         text-align: center;
         cursor: pointer;
-        color: #0d75b5;
+        color: #3060C8;
     }
 </style>

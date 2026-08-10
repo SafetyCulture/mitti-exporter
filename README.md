@@ -1,13 +1,13 @@
-# SafetyCulture Exporter
+# Mitti Exporter
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/39eecd9ef3573ecca044/maintainability)](https://codeclimate.com/github/SafetyCulture/safetyculture-exporter/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/39eecd9ef3573ecca044/test_coverage)](https://codeclimate.com/github/SafetyCulture/safetyculture-exporter/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/39eecd9ef3573ecca044/maintainability)](https://codeclimate.com/github/SafetyCulture/mitti-exporter/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/39eecd9ef3573ecca044/test_coverage)](https://codeclimate.com/github/SafetyCulture/mitti-exporter/test_coverage)
 
-SafetyCulture Exporter is available as both a **command-line tool (CLI)** and a **desktop application (UI)**. You can use it to export your data — inspections, templates, schedules, actions, and more — to multiple formats for business intelligence tools or record keeping. Available to all Premium and Enterprise customers.
+Mitti Exporter is available as both a **command-line tool (CLI)** and a **desktop application (UI)**. You can use it to export your data — inspections, templates, schedules, actions, and more — to multiple formats for business intelligence tools or record keeping. Available to all Premium and Enterprise customers.
 
-For instructions on downloading and running the SafetyCulture Exporter, as well as interpreting the data output, please check out our [SafetyCulture Exporter documentation](https://developer.safetyculture.com/docs/safetyculture-exporter).
+For instructions on downloading and running Mitti Exporter, as well as interpreting the data output, please check out our [Mitti Exporter documentation](https://developer.safetyculture.com/docs/safetyculture-exporter).
 
-* [SafetyCulture Exporter documentation](https://developer.safetyculture.com/docs/safetyculture-exporter)
-* [Run the SafetyCulture Exporter](https://developer.safetyculture.com/docs/safetyculture-exporter-run)
+* [Mitti Exporter documentation](https://developer.safetyculture.com/docs/safetyculture-exporter)
+* [Run Mitti Exporter](https://developer.safetyculture.com/docs/safetyculture-exporter-run)
   * [Download](https://developer.safetyculture.com/docs/safetyculture-exporter-run#download)
   * [Configuration](https://developer.safetyculture.com/docs/safetyculture-exporter-run#configure)
   * [Database support](https://developer.safetyculture.com/docs/safetyculture-exporter-database-support)
@@ -30,7 +30,7 @@ For instructions on downloading and running the SafetyCulture Exporter, as well 
   * [Actions assignees](https://developer.safetyculture.com/docs/safetyculture-exporter-data#action-assignees)
   * [Issues](https://developer.safetyculture.com/docs/safetyculture-exporter-data#issues)
 
-> The [Python version of the SafetyCulture Exporter](https://github.com/SafetyCulture/safetyculture-exporter/tree/v2) is no longer being maintained. We recommend downloading this latest version for faster exporting and additional data sets.
+> The [Python version of Mitti Exporter](https://github.com/SafetyCulture/mitti-exporter/tree/v2) is no longer being maintained. We recommend downloading this latest version for faster exporting and additional data sets.
 
 ***
 
@@ -40,7 +40,7 @@ This is a monorepo containing both the CLI and the desktop UI:
 
 ```
 .
-├── cli/          # Go CLI tool (module: github.com/SafetyCulture/safetyculture-exporter)
+├── cli/          # Go CLI tool (module: github.com/SafetyCulture/mitti-exporter)
 ├── ui/           # Wails v2 desktop app (React + Tailwind + shadcn/ui)
 │   └── frontend/ # React frontend (pnpm)
 ├── go.work       # Go workspace linking cli/ and ui/
@@ -67,7 +67,7 @@ cd cli
 GOWORK=off go test ./...
 
 # Build
-GOWORK=off go build ./cmd/safetyculture-exporter
+GOWORK=off go build ./cmd/mitti-exporter
 ```
 
 Use `GOWORK=off` for CLI-only work to avoid pulling in Wails/CGO dependencies.
@@ -112,4 +112,4 @@ Releases are triggered by pushing a version tag. The CI pipeline builds CLI bina
    `git tag -a v3.1.0 -m "Release v3.1.0"`
    Acceptable formats: `v3.1.0`, `v3.1.0-alpha.1`, `v3.1.0-beta.1`
 3. Push the tag: `git push origin v3.1.0`
-4. Review and publish the [draft release](https://github.com/SafetyCulture/safetyculture-exporter/releases).
+4. Review and publish the [draft release](https://github.com/SafetyCulture/mitti-exporter/releases).

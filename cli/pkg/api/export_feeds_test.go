@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed/mocks"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

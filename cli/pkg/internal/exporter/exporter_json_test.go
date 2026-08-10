@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/exporter"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/exporter"
 	"github.com/stretchr/testify/assert"
 )
 

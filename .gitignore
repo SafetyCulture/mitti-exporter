@@ -19,6 +19,7 @@
 # NOTE: go.work and go.work.sum are NOT ignored — they are committed to the repo
 
 # CLI runtime artifacts
+cli/**/mitti-exporter*.yaml
 cli/**/safetyculture-exporter*.yaml
 /export/
 

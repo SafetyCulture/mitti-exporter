@@ -5,7 +5,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd"
+	"github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd"
 )
 
 func TestCommandConfigure_should_not_throw_error(t *testing.T) {

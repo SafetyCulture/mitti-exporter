@@ -3,7 +3,7 @@ package logger_test
 import (
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 
 	"github.com/stretchr/testify/assert"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
 )
 
 // InitiateInspectionReportExport export the report of the given auditID.

@@ -1,4 +1,4 @@
-module github.com/SafetyCulture/safetyculture-exporter
+module github.com/SafetyCulture/mitti-exporter
 
 go 1.23
 

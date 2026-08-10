@@ -78,9 +78,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: safetyculture_exporter_db
-          POSTGRES_USER: safetyculture_exporter
-          POSTGRES_PASSWORD: safetyculture_exporter
+          POSTGRES_DB: mitti_exporter_db
+          POSTGRES_USER: mitti_exporter
+          POSTGRES_PASSWORD: mitti_exporter
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -101,7 +101,7 @@ jobs:
         working-directory: cli
         env:
           TEST_DB_DIALECT: postgres
-          TEST_DB_CONN_STRING: "postgresql://safetyculture_exporter:safetyculture_exporter@localhost:5432/safetyculture_exporter_db"
+          TEST_DB_CONN_STRING: "postgresql://mitti_exporter:mitti_exporter@localhost:5432/mitti_exporter_db"
         run: go test ./... -tags=sql
 
   mysql-integration:
@@ -113,10 +113,10 @@ jobs:
       mysql:
         image: mysql:8
         env:
-          MYSQL_ROOT_PASSWORD: safetyculture_exporter
-          MYSQL_DATABASE: safetyculture_exporter_db
-          MYSQL_USER: safetyculture_exporter
-          MYSQL_PASSWORD: safetyculture_exporter
+          MYSQL_ROOT_PASSWORD: mitti_exporter
+          MYSQL_DATABASE: mitti_exporter_db
+          MYSQL_USER: mitti_exporter
+          MYSQL_PASSWORD: mitti_exporter
         options: >-
           --health-cmd "mysqladmin ping -h localhost"
           --health-interval 10s
@@ -137,7 +137,7 @@ jobs:
         working-directory: cli
         env:
           TEST_DB_DIALECT: mysql
-          TEST_DB_CONN_STRING: "root:safetyculture_exporter@tcp(localhost:3306)/safetyculture_exporter_db?charset=utf8mb4&parseTime=True&loc=Local"
+          TEST_DB_CONN_STRING: "root:mitti_exporter@tcp(localhost:3306)/mitti_exporter_db?charset=utf8mb4&parseTime=True&loc=Local"
         run: go test ./... -tags=sql
 
   sqlserver-integration:
@@ -149,10 +149,10 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server
         env:
-          SA_PASSWORD: "SafetyCultureExporter12345"
+          SA_PASSWORD: "MittiExporter12345"
           ACCEPT_EULA: "Y"
         options: >-
-          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P SafetyCultureExporter12345 -Q \"SELECT 1\" || exit 1"
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P MittiExporter12345 -Q \"SELECT 1\" || exit 1"
           --health-interval 10s
           --health-timeout 10s
           --health-retries 20
@@ -171,5 +171,5 @@ jobs:
         working-directory: cli
         env:
           TEST_DB_DIALECT: sqlserver
-          TEST_DB_CONN_STRING: "sqlserver://sa:SafetyCultureExporter12345@localhost:1433?database=master"
+          TEST_DB_CONN_STRING: "sqlserver://sa:MittiExporter12345@localhost:1433?database=master"
         run: go test ./... -tags=sql

@@ -9,20 +9,20 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/exporter"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/inspections"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/templates"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/exporter"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/inspections"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/templates"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 	"github.com/pkg/errors"
 )
 
 var ctx context.Context
 var cancelFunc context.CancelFunc
 
-// NewSafetyCultureExporter builds a SafetyCultureExporter with clients inferred from own configuration
-func NewSafetyCultureExporter(cfg *ExporterConfiguration, version *AppVersion) (*SafetyCultureExporter, error) {
+// NewMittiExporter builds a MittiExporter with clients inferred from own configuration
+func NewMittiExporter(cfg *ExporterConfiguration, version *AppVersion) (*MittiExporter, error) {
 	apiClient, err := getAPIClient(cfg.ToApiConfig(), version)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func NewSafetyCultureExporter(cfg *ExporterConfiguration, version *AppVersion) (
 		return nil, err
 	}
 
-	return &SafetyCultureExporter{
+	return &MittiExporter{
 		apiClient:       apiClient,
 		sheqsyApiClient: sheqsyApiClient,
 		cfg:             cfg,
@@ -144,7 +144,7 @@ type HttpApiCfg struct {
 	sheqsyPassword string
 }
 
-type SafetyCultureExporter struct {
+type MittiExporter struct {
 	apiClient       *httpapi.Client
 	sheqsyApiClient *httpapi.Client
 	cfg             *ExporterConfiguration
@@ -152,15 +152,15 @@ type SafetyCultureExporter struct {
 	exportStatus    *feed.ExportStatus
 }
 
-func (s *SafetyCultureExporter) SetApiClient(apiClient *httpapi.Client) {
+func (s *MittiExporter) SetApiClient(apiClient *httpapi.Client) {
 	s.apiClient = apiClient
 }
 
-func (s *SafetyCultureExporter) SetSheqsyApiClient(apiClient *httpapi.Client) {
+func (s *MittiExporter) SetSheqsyApiClient(apiClient *httpapi.Client) {
 	s.sheqsyApiClient = apiClient
 }
 
-func (s *SafetyCultureExporter) RunInspectionJSON() error {
+func (s *MittiExporter) RunInspectionJSON() error {
 	exportPath := fmt.Sprintf("%s/json/", s.cfg.Export.Path)
 	err := os.MkdirAll(exportPath, os.ModePerm)
 	if err != nil {
@@ -185,7 +185,7 @@ func (s *SafetyCultureExporter) RunInspectionJSON() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) CheckDBConnection() error {
+func (s *MittiExporter) CheckDBConnection() error {
 	_, err := feed.GetDatabase(s.cfg.Db.Dialect, s.cfg.Db.ConnectionString)
 	if err != nil {
 		return errors.Wrap(err, "create sql exporter")
@@ -193,7 +193,7 @@ func (s *SafetyCultureExporter) CheckDBConnection() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) RunSQL() error {
+func (s *MittiExporter) RunSQL() error {
 	ctx, cancelFunc = context.WithCancel(context.Background())
 	if s.cfg.Export.Media {
 		err := os.MkdirAll(s.cfg.Export.MediaPath, os.ModePerm)
@@ -223,7 +223,7 @@ func (s *SafetyCultureExporter) RunSQL() error {
 }
 
 // RunSQLite - runs the export and will save into a local sqlite db file
-func (s *SafetyCultureExporter) RunSQLite() error {
+func (s *MittiExporter) RunSQLite() error {
 	ctx, cancelFunc = context.WithCancel(context.Background())
 	exportPath := s.cfg.Export.Path
 
@@ -259,7 +259,7 @@ func (s *SafetyCultureExporter) RunSQLite() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) RunCSV() error {
+func (s *MittiExporter) RunCSV() error {
 	ctx, cancelFunc = context.WithCancel(context.Background())
 	exportPath := s.cfg.Export.Path
 
@@ -295,7 +295,7 @@ func (s *SafetyCultureExporter) RunCSV() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) RunInspectionReports() error {
+func (s *MittiExporter) RunInspectionReports() error {
 	ctx, cancelFunc = context.WithCancel(context.Background())
 	err := os.MkdirAll(s.cfg.Export.Path, os.ModePerm)
 	if err != nil {
@@ -325,7 +325,7 @@ func (s *SafetyCultureExporter) RunInspectionReports() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) RunPrintSchema() error {
+func (s *MittiExporter) RunPrintSchema() error {
 	e, err := feed.NewSchemaExporter(os.Stdout)
 	if err != nil {
 		return errors.Wrap(err, "unable to create exporter")
@@ -340,7 +340,7 @@ func (s *SafetyCultureExporter) RunPrintSchema() error {
 	return nil
 }
 
-func (s *SafetyCultureExporter) GetTemplateList() []TemplateResponseItem {
+func (s *MittiExporter) GetTemplateList() []TemplateResponseItem {
 	client := templates.NewTemplatesClient(s.apiClient)
 	res := client.GetTemplateList(context.Background(), 1000)
 
@@ -356,7 +356,7 @@ func (s *SafetyCultureExporter) GetTemplateList() []TemplateResponseItem {
 }
 
 // GetExportStatus called by UI
-func (s *SafetyCultureExporter) GetExportStatus() *ExportStatusResponse {
+func (s *MittiExporter) GetExportStatus() *ExportStatusResponse {
 	data := s.exportStatus.ReadStatus()
 	var res []ExportStatusResponseItem
 
@@ -384,15 +384,15 @@ func (s *SafetyCultureExporter) GetExportStatus() *ExportStatusResponse {
 }
 
 // SetConfiguration will replace the configuration. Used by the UI to pass in the newly saved configuration
-func (s *SafetyCultureExporter) SetConfiguration(cfg *ExporterConfiguration) {
+func (s *MittiExporter) SetConfiguration(cfg *ExporterConfiguration) {
 	s.cfg = cfg
 }
 
 // CleanExportStatus will clean the status items. Used by the UI
-func (s *SafetyCultureExporter) CleanExportStatus() {
+func (s *MittiExporter) CleanExportStatus() {
 	s.exportStatus.Reset()
 }
 
-func (s *SafetyCultureExporter) CancelExport() {
+func (s *MittiExporter) CancelExport() {
 	cancelFunc()
 }

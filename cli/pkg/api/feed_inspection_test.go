@@ -9,7 +9,7 @@ import (
 
 	"gopkg.in/h2non/gock.v1"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
 	"github.com/stretchr/testify/assert"
 )
 

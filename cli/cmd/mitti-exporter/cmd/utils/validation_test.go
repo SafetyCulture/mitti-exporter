@@ -5,7 +5,7 @@ package util_test
 import (
 	"testing"
 
-	util "github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/utils"
+	util "github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/utils"
 )
 
 func TestCheck(t *testing.T) {

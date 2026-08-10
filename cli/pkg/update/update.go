@@ -13,7 +13,7 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
-const RepoExporter string = "safetyculture-exporter"
+const RepoExporter string = "mitti-exporter"
 
 const archDarwinAmd64 string = "darwin-amd64"
 const archDarwinArm64 string = "darwin-arm64"

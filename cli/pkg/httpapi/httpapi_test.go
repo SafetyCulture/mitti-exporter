@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/h2non/gock.v1"
@@ -17,7 +17,7 @@ func GetTestClient(opts ...httpapi.Opt) *httpapi.Client {
 	cfg := httpapi.ClientCfg{
 		Addr:                "http://localhost:9999",
 		AuthorizationHeader: "abc123",
-		IntegrationID:       "safetyculture-exporter",
+		IntegrationID:       "mitti-exporter",
 		IntegrationVersion:  "dev",
 	}
 
@@ -171,7 +171,7 @@ func TestClient_HeadersShouldMatch(t *testing.T) {
 
 	gock.New("http://localhost:9999").
 		Get("accounts/user/v1/user:WhoAmI").
-		MatchHeader("sc-integration-id", "safetyculture-exporter").
+		MatchHeader("sc-integration-id", "mitti-exporter").
 		MatchHeader("sc-integration-version", "dev").
 		Reply(200).
 		BodyString(`{}`)

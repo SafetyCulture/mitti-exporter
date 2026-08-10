@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 func ExecuteGet[T any](ctx context.Context, apiClient *Client, url string, params any) (*T, error) {

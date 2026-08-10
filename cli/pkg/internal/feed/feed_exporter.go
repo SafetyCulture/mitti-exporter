@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/MickStanciu/go-fn/fn"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 )
 
 /*
@@ -20,8 +20,8 @@ They are called directly by the CMD from export cmd.package
 */
 const maxConcurrentGoRoutines = 10
 
-// SafetyCultureFeedExporter defines the basic action in regard to the exporter
-type SafetyCultureFeedExporter interface {
+// MittiFeedExporter defines the basic action in regard to the exporter
+type MittiFeedExporter interface {
 	// ExportSchemas will generate the schema for SafetyCulture feeds, without downloading data
 	ExportSchemas(exporter Exporter) error
 	// ExportFeeds will export SafetyCulture feeds and Sheqsy feeds

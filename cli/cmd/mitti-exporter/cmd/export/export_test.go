@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/export"
-	exporterAPI "github.com/SafetyCulture/safetyculture-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/export"
+	exporterAPI "github.com/SafetyCulture/mitti-exporter/pkg/api"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -15,8 +15,8 @@ func TestPrintSchemaCmd(t *testing.T) {
 	res := export.PrintSchemaCmd()
 	require.NotNil(t, res)
 	assert.EqualValues(t, "schema", res.Use)
-	assert.EqualValues(t, "Print SafetyCulture table schemas", res.Short)
-	assert.EqualValues(t, "safetyculture-exporter schema", res.Example)
+	assert.EqualValues(t, "Print Mitti table schemas", res.Short)
+	assert.EqualValues(t, "mitti-exporter schema", res.Example)
 }
 
 func TestReportCmd(t *testing.T) {
@@ -30,21 +30,21 @@ func TestInspectionJSONCmd(t *testing.T) {
 	res := export.InspectionJSONCmd()
 	require.NotNil(t, res)
 	assert.EqualValues(t, "inspection-json", res.Use)
-	assert.EqualValues(t, "Export SafetyCulture inspections to json files", res.Short)
+	assert.EqualValues(t, "Export Mitti inspections to json files", res.Short)
 }
 
 func TestCSVCmd(t *testing.T) {
 	res := export.CSVCmd()
 	require.NotNil(t, res)
 	assert.EqualValues(t, "csv", res.Use)
-	assert.EqualValues(t, "Export SafetyCulture data to CSV files", res.Short)
+	assert.EqualValues(t, "Export Mitti data to CSV files", res.Short)
 }
 
 func TestSQLCmd(t *testing.T) {
 	res := export.SQLCmd()
 	require.NotNil(t, res)
 	assert.EqualValues(t, "sql", res.Use)
-	assert.EqualValues(t, "Export SafetyCulture data to SQL database", res.Short)
+	assert.EqualValues(t, "Export Mitti data to SQL database", res.Short)
 }
 
 func TestNewConfigurationManagerFromFile_should_apply_the_viper_defaults(t *testing.T) {

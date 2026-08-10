@@ -5,11 +5,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/configure"
-	"github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/export"
-	util "github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/utils"
-	"github.com/SafetyCulture/safetyculture-exporter/internal/app/version"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/update"
+	"github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/configure"
+	"github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/export"
+	util "github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/utils"
+	"github.com/SafetyCulture/mitti-exporter/internal/app/version"
+	"github.com/SafetyCulture/mitti-exporter/pkg/update"
 	"github.com/gookit/color"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
@@ -25,15 +25,15 @@ var connectionFlags, dbFlags, sqliteFlags, csvFlags, exportFlags, mediaFlags, in
 // RootCmd represents the base command when called without any subcommands.
 var RootCmd = &cobra.Command{
 	Version: version.GetVersion(),
-	Use:     "safetyculture-exporter",
-	Short:   "A CLI tool for extracting your SafetyCulture data",
-	Long:    "A CLI tool for extracting your SafetyCulture data",
+	Use:     "mitti-exporter",
+	Short:   "A CLI tool for extracting your Mitti data",
+	Long:    "A CLI tool for extracting your Mitti data",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	fmt.Printf("SafetyCulture Exporter CLI version %s\n", version.GetVersion())
+	fmt.Printf("Mitti Exporter CLI version %s\n", version.GetVersion())
 	updateMsgChan := make(chan *update.ReleaseInfo)
 
 	go func() {
@@ -49,7 +49,7 @@ func Execute() {
 		yellow := color.FgYellow.Render
 		cyan := color.FgCyan.Render
 		fmt.Fprintf(os.Stderr, "\n\n%s %s → %s\n%s\n\n",
-			yellow("A new version of safetyculture-exporter is available"),
+			yellow("A new version of mitti-exporter is available"),
 			cyan(version.GetVersion()),
 			cyan(newRelease.Version),
 			yellow(newRelease.ChangelogURL),
@@ -67,7 +67,7 @@ func init() {
 	// will be global for your application.
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config-path", "./safetyculture-exporter.yaml", "config file")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config-path", "./mitti-exporter.yaml", "config file")
 
 	configFlags()
 	bindFlags()
@@ -211,12 +211,7 @@ func addCmd(cmd *cobra.Command, flags ...*flag.FlagSet) {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		viper.SetConfigFile("safetyculture-exporter.yaml")
-	}
+	viper.SetConfigFile(resolveConfigFile(cfgFile))
 
 	viper.SetEnvPrefix("IAUD")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
@@ -224,4 +219,26 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	_ = viper.ReadInConfig()
+}
+
+// resolveConfigFile falls back to the pre-rebrand "safetyculture-exporter.yaml"
+// name if the default config path doesn't exist but the legacy one does
+// alongside it, so existing configs keep working without a manual rename.
+// An explicit, custom --config-path is always used as-is.
+func resolveConfigFile(cfgFile string) string {
+	if cfgFile == "" {
+		cfgFile = "mitti-exporter.yaml"
+	}
+
+	if _, err := os.Stat(cfgFile); err == nil {
+		return cfgFile
+	}
+
+	if legacy := strings.Replace(cfgFile, "mitti-exporter.yaml", "safetyculture-exporter.yaml", 1); legacy != cfgFile {
+		if _, err := os.Stat(legacy); err == nil {
+			return legacy
+		}
+	}
+
+	return cfgFile
 }

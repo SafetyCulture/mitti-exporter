@@ -87,7 +87,7 @@
     }
     
     .input-error {
-        border-color: #A8242A!important;
+        border-color: #B02010!important;
         background-color: rgba(180, 20, 20, 0.15);
     }
 </style>

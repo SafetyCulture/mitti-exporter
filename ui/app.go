@@ -12,20 +12,22 @@ import (
 	osRuntime "runtime"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter-ui/internal/version"
-	exporterAPI "github.com/SafetyCulture/safetyculture-exporter/pkg/api"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/update"
+	"github.com/SafetyCulture/mitti-exporter-ui/internal/version"
+	exporterAPI "github.com/SafetyCulture/mitti-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/update"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-const gitRepoExporterUI string = "safetyculture-exporter-ui"
+// gitRepoExporter is the consolidated monorepo that publishes both CLI and UI
+// release assets under a single GitHub Release (see .github/workflows/release.yml).
+const gitRepoExporter string = "mitti-exporter"
 
 // App struct
 type App struct {
 	ctx      context.Context
 	cm       *exporterAPI.ConfigurationManager
-	exporter *exporterAPI.SafetyCultureExporter
+	exporter *exporterAPI.MittiExporter
 }
 
 // NewApp creates a new App application struct
@@ -42,17 +44,19 @@ func (a *App) startup(ctx context.Context) {
 		panic("failed to get settings directory")
 	}
 
-	if !checkForConfigFile(settingsDir) {
-		runtime.LogInfof(ctx, "creating configuration file: %s/safetyculture-exporter.yaml", settingsDir)
-		cm := exporterAPI.NewConfigurationManager(settingsDir, "safetyculture-exporter.yaml")
+	configFile := resolveConfigFileName(settingsDir)
+
+	if !checkForConfigFile(settingsDir, configFile) {
+		runtime.LogInfof(ctx, "creating configuration file: %s/%s", settingsDir, configFile)
+		cm := exporterAPI.NewConfigurationManager(settingsDir, configFile)
 		if err := cm.SaveConfiguration(); err != nil {
 			runtime.LogError(ctx, err.Error())
 			panic("failed to save configuration")
 		}
 		a.cm = cm
 	} else {
-		runtime.LogInfof(ctx, "loading configuration file: %s/safetyculture-exporter.yaml", settingsDir)
-		cm, err := exporterAPI.NewConfigurationManagerFromFile(settingsDir, "safetyculture-exporter.yaml")
+		runtime.LogInfof(ctx, "loading configuration file: %s/%s", settingsDir, configFile)
+		cm, err := exporterAPI.NewConfigurationManagerFromFile(settingsDir, configFile)
 		if err != nil {
 			runtime.LogError(ctx, err.Error())
 			panic("failed to load configuration")
@@ -65,7 +69,7 @@ func (a *App) startup(ctx context.Context) {
 		IntegrationVersion: version.GetVersion(),
 	}
 
-	a.exporter, err = exporterAPI.NewSafetyCultureExporter(a.cm.Configuration, &ver)
+	a.exporter, err = exporterAPI.NewMittiExporter(a.cm.Configuration, &ver)
 	if err != nil {
 		runtime.LogError(ctx, err.Error())
 		panic("failed to load configuration")
@@ -73,11 +77,28 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-func checkForConfigFile(basePath string) bool {
-	if _, err := os.Stat(path.Join(basePath, "safetyculture-exporter.yaml")); os.IsNotExist(err) {
+func checkForConfigFile(basePath, configFile string) bool {
+	if _, err := os.Stat(path.Join(basePath, configFile)); os.IsNotExist(err) {
 		return false
 	}
 	return true
+}
+
+// resolveConfigFileName picks the configuration filename to use within basePath.
+// It prefers the current "mitti-exporter.yaml" name, but falls back to the
+// pre-rebrand "safetyculture-exporter.yaml" name if that's the one that
+// actually exists, so existing installs keep working without a manual migration.
+func resolveConfigFileName(basePath string) string {
+	const configFileName = "mitti-exporter.yaml"
+	const legacyConfigFileName = "safetyculture-exporter.yaml"
+
+	if checkForConfigFile(basePath, configFileName) {
+		return configFileName
+	}
+	if checkForConfigFile(basePath, legacyConfigFileName) {
+		return legacyConfigFileName
+	}
+	return configFileName
 }
 
 // SelectDirectory opens a directory dialog and returns the path of the selected directory
@@ -197,7 +218,7 @@ func (a *App) ValidateApiKey(apiKey string) string {
 				IntegrationVersion: version.GetVersion(),
 			}
 
-			a.exporter, err = exporterAPI.NewSafetyCultureExporter(a.cm.Configuration, &ver)
+			a.exporter, err = exporterAPI.NewMittiExporter(a.cm.Configuration, &ver)
 			if err != nil {
 				runtime.LogError(a.ctx, err.Error())
 				panic("failed to re-load configuration")
@@ -264,7 +285,7 @@ func (a *App) ReadVersion() *VersionResponse {
 	var downloadURL string
 	var shouldUpdate bool
 
-	releaseInfo := update.Check(current, gitRepoExporterUI)
+	releaseInfo := update.Check(current, gitRepoExporter)
 	if releaseInfo != nil {
 		latest = releaseInfo.Version
 		downloadURL = releaseInfo.DownloadURL
@@ -320,7 +341,17 @@ func GetSettingDirectoryPath() (string, error) {
 		if err != nil {
 			return "", errors.New("can't get user's home directory")
 		}
-		return filepath.Join(homeDir, "/Library/Application Support/safetyculture-exporter"), nil
+		newDir := filepath.Join(homeDir, "/Library/Application Support/mitti-exporter")
+		if _, err := os.Stat(newDir); os.IsNotExist(err) {
+			// Existing installs may still have their settings under the
+			// pre-rebrand directory name; keep using it if the new one
+			// hasn't been created yet, so settings aren't lost.
+			legacyDir := filepath.Join(homeDir, "/Library/Application Support/safetyculture-exporter")
+			if _, err := os.Stat(legacyDir); err == nil {
+				return legacyDir, nil
+			}
+		}
+		return newDir, nil
 	default:
 		wd, err := os.Getwd()
 		if err != nil {

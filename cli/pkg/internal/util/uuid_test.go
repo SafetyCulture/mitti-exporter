@@ -1,7 +1,7 @@
 package util_test
 
 import (
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 	"github.com/gofrs/uuid"
 	"github.com/stretchr/testify/require"
 	"testing"

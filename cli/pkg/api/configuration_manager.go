@@ -9,9 +9,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/inspections"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/inspections"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 // ExporterConfiguration is the equivalent struct of YAML

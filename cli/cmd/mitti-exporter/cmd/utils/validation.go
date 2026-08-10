@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )

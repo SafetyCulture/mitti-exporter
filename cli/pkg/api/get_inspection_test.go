@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/h2non/gock.v1"
 )

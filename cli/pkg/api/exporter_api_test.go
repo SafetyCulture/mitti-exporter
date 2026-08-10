@@ -4,13 +4,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/api"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/h2non/gock.v1"
 )
 
-func TestSafetyCultureExporter_GetTemplateList(t *testing.T) {
+func TestMittiExporter_GetTemplateList(t *testing.T) {
 	cfg := api.ExporterConfiguration{}
 
 	apiClient := GetTestClient()
@@ -35,7 +35,7 @@ func TestSafetyCultureExporter_GetTemplateList(t *testing.T) {
 			}
 		`)
 
-	exporter, err := api.NewSafetyCultureExporter(&cfg, &api.AppVersion{})
+	exporter, err := api.NewMittiExporter(&cfg, &api.AppVersion{})
 	require.Nil(t, err)
 	exporter.SetApiClient(apiClient)
 	exporter.SetSheqsyApiClient(apiClient)

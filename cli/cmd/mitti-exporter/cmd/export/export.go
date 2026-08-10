@@ -1,9 +1,9 @@
 package export
 
 import (
-	util "github.com/SafetyCulture/safetyculture-exporter/cmd/safetyculture-exporter/cmd/utils"
-	"github.com/SafetyCulture/safetyculture-exporter/internal/app/version"
-	exporterAPI "github.com/SafetyCulture/safetyculture-exporter/pkg/api"
+	util "github.com/SafetyCulture/mitti-exporter/cmd/mitti-exporter/cmd/utils"
+	"github.com/SafetyCulture/mitti-exporter/internal/app/version"
+	exporterAPI "github.com/SafetyCulture/mitti-exporter/pkg/api"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -12,12 +12,12 @@ import (
 func SQLCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "sql",
-		Short: "Export SafetyCulture data to SQL database",
+		Short: "Export Mitti data to SQL database",
 		Example: `// Limit inspections and schedules to these templates
-safetyculture-exporter sql --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
+mitti-exporter sql --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
 
 // Customise export location
-safetyculture-exporter sql --export-path /path/to/export/to`,
+mitti-exporter sql --export-path /path/to/export/to`,
 		RunE: runSQL,
 	}
 }
@@ -26,12 +26,12 @@ safetyculture-exporter sql --export-path /path/to/export/to`,
 func CSVCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "csv",
-		Short: "Export SafetyCulture data to CSV files",
+		Short: "Export Mitti data to CSV files",
 		Example: `// Limit inspections and schedules to these templates
-safetyculture-exporter csv --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
+mitti-exporter csv --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
 
 // Customise export location
-safetyculture-exporter csv --export-path /path/to/export/to`,
+mitti-exporter csv --export-path /path/to/export/to`,
 		RunE: runCSV,
 	}
 }
@@ -40,12 +40,12 @@ safetyculture-exporter csv --export-path /path/to/export/to`,
 func SQLiteCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "sqlite",
-		Short: "Export SafetyCulture data to a local SQLite file",
+		Short: "Export Mitti data to a local SQLite file",
 		Example: `// Limit inspections and schedules to these templates
-safetyculture-exporter sqlite --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
+mitti-exporter sqlite --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
 
 // Customise export location
-safetyculture-exporter sqlite --export-path /path/to/export/to`,
+mitti-exporter sqlite --export-path /path/to/export/to`,
 		RunE: runSQLite,
 	}
 }
@@ -54,12 +54,12 @@ safetyculture-exporter sqlite --export-path /path/to/export/to`,
 func InspectionJSONCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "inspection-json",
-		Short: "Export SafetyCulture inspections to json files",
+		Short: "Export Mitti inspections to json files",
 		Example: `// Limit inspections to these templates
-safetyculture-exporter inspection-json --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
+mitti-exporter inspection-json --template-ids template_F492E54D87F2419E9398F7BDCA0FA5D9,template_d54e06808d2f11e2893e83a731dba0ca
 
 // Customise export location
-safetyculture-exporter inspection-json --export-path /path/to/export/to`,
+mitti-exporter inspection-json --export-path /path/to/export/to`,
 		RunE: runInspectionJSON,
 	}
 }
@@ -68,8 +68,8 @@ safetyculture-exporter inspection-json --export-path /path/to/export/to`,
 func PrintSchemaCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "schema",
-		Short:   "Print SafetyCulture table schemas",
-		Example: `safetyculture-exporter schema`,
+		Short:   "Print Mitti table schemas",
+		Example: `mitti-exporter schema`,
 		RunE:    printSchema,
 	}
 }
@@ -80,57 +80,57 @@ func ReportCmd() *cobra.Command {
 		Use:   "report",
 		Short: "Export inspection report",
 		Example: `// Export PDF and Word inspection reports
-		safetyculture-exporter report --export-path /path/to/export/to --format PDF,WORD
+		mitti-exporter report --export-path /path/to/export/to --format PDF,WORD
 		// Export PDF inspection reports with a custom report layout
-		safetyculture-exporter report --export-path /path/to/export/to --format PDF --preference-id abc`,
+		mitti-exporter report --export-path /path/to/export/to --format PDF --preference-id abc`,
 		RunE: runInspectionReports,
 	}
 }
 
 func runSQL(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunSQL()
 	util.Check(err, "error while exporting SQL")
 	return nil
 }
 
 func runInspectionJSON(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunInspectionJSON()
 	util.Check(err, "error while exporting JSON")
 	return nil
 }
 
 func runCSV(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunCSV()
 	util.Check(err, "error while exporting CSV")
 	return nil
 }
 
 func runSQLite(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunSQLite()
 	util.Check(err, "error while exporting SQLITE")
 	return nil
 }
 
 func printSchema(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunPrintSchema()
 	util.Check(err, "error while printing schema")
 	return nil
 }
 
 func runInspectionReports(*cobra.Command, []string) error {
-	exp := NewSafetyCultureExporter(viper.GetViper())
+	exp := NewMittiExporter(viper.GetViper())
 	err := exp.RunInspectionReports()
 	util.Check(err, "failed to generate reports")
 	return nil
 }
 
-// NewSafetyCultureExporter create a new SafetyCultureExporter with configuration from Viper
-func NewSafetyCultureExporter(v *viper.Viper) *exporterAPI.SafetyCultureExporter {
+// NewMittiExporter create a new MittiExporter with configuration from Viper
+func NewMittiExporter(v *viper.Viper) *exporterAPI.MittiExporter {
 	cm, err := exporterAPI.NewConfigurationManagerFromFile("", v.ConfigFileUsed())
 	if err != nil {
 		util.Check(err, "failed to initialize the exporter")
@@ -143,7 +143,7 @@ func NewSafetyCultureExporter(v *viper.Viper) *exporterAPI.SafetyCultureExporter
 		IntegrationID:      version.GetIntegrationID(),
 		IntegrationVersion: version.GetVersion(),
 	}
-	exporter, err := exporterAPI.NewSafetyCultureExporter(cm.Configuration, &ver)
+	exporter, err := exporterAPI.NewMittiExporter(cm.Configuration, &ver)
 	util.Check(err, "failed to initialize the exporter")
 	return exporter
 }

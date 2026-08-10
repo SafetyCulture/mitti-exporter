@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 const (
@@ -24,7 +24,7 @@ type JSONExporter struct {
 }
 
 // NewJSONExporter creates new instance of JSONExporter
-func NewJSONExporter(exportPath string) SafetyCultureJSONExporter {
+func NewJSONExporter(exportPath string) MittiJSONExporter {
 	return &JSONExporter{
 		exportPath: exportPath,
 	}
