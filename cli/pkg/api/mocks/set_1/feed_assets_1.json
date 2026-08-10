@@ -13,7 +13,8 @@
       "created_at": "2022-11-29T23:32:15.700Z",
       "modified_at": "2022-11-30T01:09:49.613Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
-      "state": "ASSET_STATE_ACTIVE"
+      "state": "ASSET_STATE_ACTIVE",
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000001\"|\"name\":\"In Service\"|\"color\":\"STATUS_BADGE_COLOR_GREEN\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
     },
     {
       "id": "90f7cbb3-14d6-4784-b7a6-c3003fbfc2ed",
@@ -24,7 +25,8 @@
       "created_at": "2022-11-30T01:05:08.894Z",
       "modified_at": "2022-11-30T01:10:05.682Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
-      "state": "ASSET_STATE_ACTIVE"
+      "state": "ASSET_STATE_ACTIVE",
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000003\"|\"name\":\"Out of Service\"|\"color\":\"STATUS_BADGE_COLOR_RED\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
     },
     {
       "id": "1a156a16-3c6a-49ec-a719-2e7a559d5f50",
@@ -35,7 +37,8 @@
       "created_at": "2022-11-30T01:06:25.545Z",
       "modified_at": "2022-11-30T01:06:35.809Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
-      "state": "ASSET_STATE_ACTIVE"
+      "state": "ASSET_STATE_ACTIVE",
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000004\"|\"name\":\"Under Repair\"|\"color\":\"STATUS_BADGE_COLOR_YELLOW\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
     },
     {
       "id": "c68d5db9-f98e-44f7-8675-4fc7629a0eb6",
@@ -46,7 +49,8 @@
       "created_at": "2022-11-30T01:09:13.047Z",
       "modified_at": "2022-11-30T01:09:13.047Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
-      "state": "ASSET_STATE_ACTIVE"
+      "state": "ASSET_STATE_ACTIVE",
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000005\"|\"name\":\"Decommissioned\"|\"color\":\"STATUS_BADGE_COLOR_GREY\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
     },
     {
       "id": "28f44026-9749-4430-88f6-3a3eddb10526",
@@ -57,7 +61,8 @@
       "created_at": "2022-11-30T01:09:30.166Z",
       "modified_at": "2022-11-30T05:29:41.121Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
-      "state": "ASSET_STATE_ACTIVE"
+      "state": "ASSET_STATE_ACTIVE",
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000001\"|\"name\":\"In Service\"|\"color\":\"STATUS_BADGE_COLOR_GREEN\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
     }
   ]
 }

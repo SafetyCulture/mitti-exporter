@@ -1,4 +1,8 @@
 ---
+run:
+  # Default is 1m, which the CLI module's lint run exceeds on a cold cache in CI.
+  timeout: 2m
+
 linters-settings:
   dupl:
     threshold: 100

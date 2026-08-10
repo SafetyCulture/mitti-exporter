@@ -14,15 +14,16 @@ import (
 
 // Asset represents a row from the assets feed
 type Asset struct {
-	ID         string    `json:"id" csv:"asset_id" gorm:"primarykey;column:asset_id;size:36"`
-	Code       string    `json:"code" csv:"code"`
-	TypeID     string    `json:"type_id" csv:"type_id"`
-	TypeName   string    `json:"type_name" csv:"type_name"`
-	Fields     string    `json:"fields" csv:"fields"`
-	CreatedAt  time.Time `json:"created_at" csv:"created_at"`
-	ModifiedAt time.Time `json:"modified_at" csv:"modified_at" gorm:"index:idx_ast_modified_at,sort:desc"`
-	SiteID     string    `json:"site_id" csv:"site_id" gorm:"size:41"`
-	State      string    `json:"state" csv:"state"`
+	ID            string    `json:"id" csv:"asset_id" gorm:"primarykey;column:asset_id;size:36"`
+	Code          string    `json:"code" csv:"code"`
+	TypeID        string    `json:"type_id" csv:"type_id"`
+	TypeName      string    `json:"type_name" csv:"type_name"`
+	Fields        string    `json:"fields" csv:"fields"`
+	CreatedAt     time.Time `json:"created_at" csv:"created_at"`
+	ModifiedAt    time.Time `json:"modified_at" csv:"modified_at" gorm:"index:idx_ast_modified_at,sort:desc"`
+	SiteID        string    `json:"site_id" csv:"site_id" gorm:"size:41"`
+	State         string    `json:"state" csv:"state"`
+	StatusOptions string    `json:"status_options" csv:"status_options"`
 }
 
 // AssetFeed is a representation of the assets feed
@@ -67,6 +68,7 @@ func (f *AssetFeed) Columns() []string {
 		"modified_at",
 		"site_id",
 		"state",
+		"status_options",
 	}
 }
 

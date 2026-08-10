@@ -1,13 +1,14 @@
-+-------------+----------+-------------+
-|    NAME     |   TYPE   | PRIMARY KEY |
-+-------------+----------+-------------+
-| asset_id    | TEXT     | true        |
-| code        | TEXT     |             |
-| type_id     | TEXT     |             |
-| type_name   | TEXT     |             |
-| fields      | TEXT     |             |
-| created_at  | datetime |             |
-| modified_at | datetime |             |
-| site_id     | TEXT     |             |
-| state       | TEXT     |             |
-+-------------+----------+-------------+
++----------------+----------+-------------+
+|      NAME      |   TYPE   | PRIMARY KEY |
++----------------+----------+-------------+
+| asset_id       | TEXT     | true        |
+| code           | TEXT     |             |
+| type_id        | TEXT     |             |
+| type_name      | TEXT     |             |
+| fields         | TEXT     |             |
+| created_at     | datetime |             |
+| modified_at    | datetime |             |
+| site_id        | TEXT     |             |
+| state          | TEXT     |             |
+| status_options | TEXT     |             |
++----------------+----------+-------------+
