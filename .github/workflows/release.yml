@@ -297,7 +297,11 @@ jobs:
           wails build -platform windows/amd64 -clean -skipbindings `
             -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter-ui/internal/version.version=${{ github.ref_name }}"
 
+      # TODO: re-enable once the SSL.com code-signing certificate tied to
+      # CREDENTIAL_ID is renewed - it expired and is blocking releases
+      # ("Error: certificate associated with credentialID is expired").
       - name: Sign with CodeSignTool
+        if: false
         uses: sslcom/esigner-codesign@v1.3.2
         with:
           command: sign
@@ -311,7 +315,7 @@ jobs:
           signing_method: v2
           jvm_max_memory: 1024M
 
-      - name: Copy signed binary
+      - name: Copy binary (unsigned - see TODO above)
         shell: pwsh
         run: |
           Copy-Item -Path .\ui\build\bin\mitti-exporter-ui.exe -Destination .\mitti-exporter-ui-windows-x86_64.exe
