@@ -33,7 +33,7 @@ repos:
             ui/frontend/pnpm-lock.yaml
           )$
   - repo: https://github.com/golangci/golangci-lint
-    rev: v1.64.8
+    rev: v2.12.2
     hooks:
       - id: golangci-lint
         entry: bash -c 'cd cli && GOWORK=off golangci-lint run'
