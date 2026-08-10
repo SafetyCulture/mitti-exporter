@@ -15,6 +15,6 @@ func Check(err error, msg string) {
 	}
 
 	if err != nil {
-		lgr.Fatal(errors.Wrapf(err, msg))
+		lgr.Fatal(errors.Wrap(err, msg))
 	}
 }
