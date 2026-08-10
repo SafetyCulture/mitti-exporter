@@ -1,16 +1,16 @@
 <!-- GSD:project-start source:PROJECT.md -->
 ## Project
 
-**SafetyCulture Exporter Monorepo**
+**Mitti Exporter Monorepo**
 
-A monorepo consolidation of the SafetyCulture Exporter CLI and its desktop UI wrapper. The CLI (Go) and UI (Wails + React/Tailwind/shadcn) live side-by-side using Go workspaces, with the UI referencing the CLI as a local module instead of published build artifacts. A unified CI pipeline publishes both CLI binaries and desktop app bundles as GitHub Release assets.
+A monorepo consolidation of the Mitti Exporter CLI (rebranded from SafetyCulture Exporter, see FG-7681) and its desktop UI wrapper. The CLI (Go) and UI (Wails + React/Tailwind/shadcn) live side-by-side using Go workspaces, with the UI referencing the CLI as a local module instead of published build artifacts. A unified CI pipeline publishes both CLI binaries and desktop app bundles as GitHub Release assets.
 
 **Core Value:** One repository, one release process — the UI always builds against the latest CLI code without waiting for artifact publishing.
 
 ### Constraints
 
 - **Go workspaces**: Must use `go.work` for local module references — no vendoring hacks
-- **Module path**: CLI module path (`github.com/SafetyCulture/safetyculture-exporter`) must not change — external consumers depend on it
+- **Module path**: CLI module path is `github.com/SafetyCulture/mitti-exporter` (changed from `github.com/SafetyCulture/safetyculture-exporter` as a deliberate breaking change during the Mitti rebrand — external Go consumers must update their import path; this is a major version bump). Once set, do not change it again without another explicit decision.
 - **Frontend stack**: React + Tailwind CSS + shadcn/ui with pnpm (not npm) and Vite
 - **Wails v2**: UI must remain a Wails v2 desktop application
 - **Release**: Single GitHub Release with both CLI and UI artifacts

@@ -16,7 +16,7 @@ import (
 // This variable should be overridden at build time using ldflags.
 var version string = "v0.0.0-dev"
 
-const integrationID string = "safetyculture-exporter-ui"
+const integrationID string = "mitti-exporter-ui"
 
 // GetVersion returns current version of the app
 func GetVersion() string {
@@ -164,9 +164,9 @@ func readZipFile(url string) (io.ReadCloser, error) {
 	var search string
 	switch runtime.GOOS {
 	case "darwin":
-		search = "SafetyCulture-Exporter.app/Contents/MacOS/SafetyCulture-Exporter"
+		search = "Mitti-Exporter.app/Contents/MacOS/Mitti-Exporter"
 	case "windows":
-		search = "build/bin/safetyculture-exporter.exe"
+		search = "build/bin/mitti-exporter.exe"
 	default:
 		return nil, fmt.Errorf("current architecture is not supported")
 	}

@@ -7,10 +7,10 @@ import (
 	"time"
 
 	"github.com/MickStanciu/go-fn/fn"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 )
 
 // ActionTimelineItem represents a row from the action timeline items feed

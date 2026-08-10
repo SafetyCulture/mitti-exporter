@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/api"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 func TestNewConfigurationManagerFromFile_when_invalid_filename(t *testing.T) {
@@ -35,7 +35,7 @@ func TestNewConfigurationManager_should_use_last_year_time(t *testing.T) {
 	assert.NotNil(t, cm)
 	assert.NotNil(t, cm.Configuration)
 	assert.EqualValues(t, "", cm.Configuration.Db.ConnectionString)
-	assert.EqualValues(t, "0001-01-01", cm.Configuration.Export.ModifiedAfter.Time.Format(util.TimeISO8601))
+	assert.EqualValues(t, "0001-01-01", cm.Configuration.Export.ModifiedAfter.Format(util.TimeISO8601))
 }
 
 func TestNewConfigurationManagerFromFile_when_filename_exists_with_time(t *testing.T) {
@@ -124,7 +124,7 @@ func TestNewConfigurationManagerFromFile_when_filename_exists_without_time(t *te
 	assert.False(t, cfg.Export.Media)
 	assert.Equal(t, "./export/media/", cfg.Export.MediaPath)
 	assert.Equal(t, "./export/", cfg.Export.Path)
-	assert.Equal(t, "0001-01-01", cfg.Export.ModifiedAfter.Time.Format(util.TimeISO8601))
+	assert.Equal(t, "0001-01-01", cfg.Export.ModifiedAfter.Format(util.TimeISO8601))
 	assert.False(t, cfg.Export.Site.IncludeDeleted)
 	assert.False(t, cfg.Export.Site.IncludeFullHierarchy)
 	assert.Equal(t, []string{"TA1", "TA2", "TA3"}, cfg.Export.Tables)
@@ -289,7 +289,7 @@ func TestConfigurationManager_ApplySafetyGuards_ModifiedBeforeAfterConflict(t *t
 	cfg := cm.Configuration
 
 	// ModifiedBefore should be reset to zero time due to conflict (before is earlier than after)
-	assert.True(t, cfg.Export.Inspection.ModifiedBefore.Time.IsZero())
+	assert.True(t, cfg.Export.Inspection.ModifiedBefore.IsZero())
 	// ModifiedAfter should remain unchanged
 	expectedAfter, _ := time.Parse("2006-01-02T15:04:05Z0700", "2023-12-31T23:59:59Z")
 	assert.Equal(t, expectedAfter, cfg.Export.ModifiedAfter.Time)
@@ -313,6 +313,6 @@ func TestBuildConfigurationWithDefaults_SetsNewFieldDefaults(t *testing.T) {
 	cfg := api.BuildConfigurationWithDefaults()
 	require.NotNil(t, cfg)
 
-	assert.True(t, cfg.Export.Inspection.ModifiedBefore.Time.IsZero())
+	assert.True(t, cfg.Export.Inspection.ModifiedBefore.IsZero())
 	assert.Equal(t, "", cfg.Export.Inspection.BlockSize)
 }

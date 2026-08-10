@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
 )
 
 // GetMedia fetches the media object from SafetyCulture.

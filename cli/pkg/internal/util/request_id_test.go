@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 func TestGetRandomRequestIDFromContext(t *testing.T) {

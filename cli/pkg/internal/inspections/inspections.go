@@ -6,11 +6,11 @@ import (
 	"sync"
 	"time"
 
-	util2 "github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	util2 "github.com/SafetyCulture/mitti-exporter/pkg/logger"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/exporter"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/exporter"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 	"go.uber.org/zap"
 )
 
@@ -21,7 +21,7 @@ type Client struct {
 	*zap.SugaredLogger
 
 	apiClient      *httpapi.Client
-	exporter       exporter.SafetyCultureJSONExporter
+	exporter       exporter.MittiJSONExporter
 	SkipIDs        []string
 	ModifiedAfter  time.Time
 	ModifiedBefore time.Time
@@ -49,7 +49,7 @@ type InspectionClientCfg struct {
 }
 
 // NewInspectionClient returns a new instance of InspectionClient
-func NewInspectionClient(cfg *InspectionClientCfg, apiClient *httpapi.Client, exporter exporter.SafetyCultureJSONExporter) InspectionClient {
+func NewInspectionClient(cfg *InspectionClientCfg, apiClient *httpapi.Client, exporter exporter.MittiJSONExporter) InspectionClient {
 	return &Client{
 		apiClient:      apiClient,
 		exporter:       exporter,

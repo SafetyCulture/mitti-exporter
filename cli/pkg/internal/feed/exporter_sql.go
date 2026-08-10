@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
@@ -44,7 +44,7 @@ func (e *SQLExporter) SupportsUpsert() bool {
 
 // ParameterLimit returns the number of parameters supported by the target DB
 func (e *SQLExporter) ParameterLimit() int {
-	switch e.DB.Dialector.Name() {
+	switch e.DB.Name() {
 	case "sqlserver":
 		return 2100
 	case "sqlite":

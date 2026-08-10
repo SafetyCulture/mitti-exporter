@@ -63,8 +63,8 @@
 </script>
 
 <div class="welcome-page">
-	<img id="welcome-page-logo" class="p-top-32" src="../images/logo.svg" alt="SafetyCulture logo"/>
-	<div class="h1">Welcome to SafetyCulture Exporter</div>
+	<img id="welcome-page-logo" class="p-top-32" src="../images/logo.svg" alt="Mitti logo"/>
+	<div class="h1">Welcome to Mitti Exporter</div>
 	<img id="welcome-page-image" src="../images/welcome.png" alt="welcome"/>
 	<div class="token-validation-text p-top-16">Generate an API token from your <span class="link" on:click={openURL} on:keypress={openURL}>SafetyCulture account</span>.</div>
 
@@ -99,7 +99,7 @@
 			</div>
 			<div>
 				<div class="note-title">Important note</div>
-				<div class="note-body">All files (apart from SQL) you export will be stored in the same place on your computer or server as the SafetyCulture Exporter. If you want to change where your files get exported, please move the SafetyCulture Exporter file itself to that place.</div>
+				<div class="note-body">All files (apart from SQL) you export will be stored in the same place on your computer or server as the Mitti Exporter. If you want to change where your files get exported, please move the Mitti Exporter file itself to that place.</div>
 			</div>
 		</div>
 	</section>
@@ -178,6 +178,6 @@
 	}
 
 	div.error-block .error-block-title {
-		color: #A02228;
+		color: #B02010;
 	}
 </style>

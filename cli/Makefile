@@ -1,6 +1,6 @@
-PACKAGE_NAME        	:= "github.com/safetyculture/safetyculture-exporter"
+PACKAGE_NAME        	:= "github.com/SafetyCulture/mitti-exporter"
 GOLANG_CROSS_VERSION  := v1.18.1
-NAME := safetyculture-exporter
+NAME := mitti-exporter
 
 .PHONY: help
 help:

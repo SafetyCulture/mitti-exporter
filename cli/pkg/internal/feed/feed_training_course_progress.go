@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/events"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 )
 
 // TrainingCourseProgress represents a row for the feed

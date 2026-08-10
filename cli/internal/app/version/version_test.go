@@ -3,7 +3,7 @@ package version_test
 import (
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/internal/app/version"
+	"github.com/SafetyCulture/mitti-exporter/internal/app/version"
 	"github.com/stretchr/testify/assert"
 )
 

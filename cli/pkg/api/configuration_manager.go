@@ -9,9 +9,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/inspections"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/util"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/inspections"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/util"
 )
 
 // ExporterConfiguration is the equivalent struct of YAML
@@ -131,11 +131,11 @@ func (mt *mTime) UnmarshalYAML(value *yaml.Node) error {
 // MarshalYAML custom marshaller for time, when is ZERO, marshal as empty string
 // note: doesn't work with pointer receiver
 func (mt mTime) MarshalYAML() (interface{}, error) {
-	if mt.Time.IsZero() {
+	if mt.IsZero() {
 		return "", nil
 	}
 
-	return mt.Time.Format(time.RFC3339), nil
+	return mt.Format(time.RFC3339), nil
 }
 
 // ConfigurationManager wrapper for configuration and fileName
@@ -255,9 +255,9 @@ func (c *ConfigurationManager) ApplySafetyGuards() {
 		}
 	}
 
-	if !c.Configuration.Export.Inspection.ModifiedBefore.Time.IsZero() && !c.Configuration.Export.ModifiedAfter.Time.IsZero() {
-		if c.Configuration.Export.Inspection.ModifiedBefore.Time.Before(c.Configuration.Export.ModifiedAfter.Time) ||
-			c.Configuration.Export.Inspection.ModifiedBefore.Time.Equal(c.Configuration.Export.ModifiedAfter.Time) {
+	if !c.Configuration.Export.Inspection.ModifiedBefore.IsZero() && !c.Configuration.Export.ModifiedAfter.IsZero() {
+		if c.Configuration.Export.Inspection.ModifiedBefore.Before(c.Configuration.Export.ModifiedAfter.Time) ||
+			c.Configuration.Export.Inspection.ModifiedBefore.Equal(c.Configuration.Export.ModifiedAfter.Time) {
 			c.Configuration.Export.Inspection.ModifiedBefore = defaultCfg.Export.Inspection.ModifiedBefore
 		}
 	}

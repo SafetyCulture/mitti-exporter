@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
@@ -15,6 +15,6 @@ func Check(err error, msg string) {
 	}
 
 	if err != nil {
-		lgr.Fatal(errors.Wrapf(err, msg))
+		lgr.Fatal(errors.Wrap(err, msg))
 	}
 }

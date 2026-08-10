@@ -36,27 +36,27 @@
 
     .button-white {
         background: #FFFFFF;
-        color: #675DF4;
+        color: #6E68DA;
         border-color: #BFC5D4;
         border-style: solid;
     }
 
     .button-purple {
-        background: #4740D4;
+        background: #4A42C8;
         color: #FFFFFF;
         border-color: #FFFFFF;
         border-style: solid;
     }
 
     .button-red {
-        background: #C62F35;
+        background: #B02010;
         color: #FFFFFF;
         border-color: #FFFFFF;
         border-style: solid;
     }
 
     .button-error {
-        background-color: #4740D4;
+        background-color: #4A42C8;
         color: #FFFFFF;
         border-color: #FFFFFF;
         border-style: solid;

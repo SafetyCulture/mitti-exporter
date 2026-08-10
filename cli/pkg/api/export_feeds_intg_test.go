@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/h2non/gock.v1"
 

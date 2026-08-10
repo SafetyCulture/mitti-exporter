@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/report"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/report"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -294,17 +294,19 @@ func (e *ReportExporter) updateReportResult(rep *reportExport, res *reportExport
 		res.NoChange++
 		e.Logger.Infof("No changes were made to %s", fn)
 	} else {
-		if rep.PDF == 1 {
+		switch rep.PDF {
+		case 1:
 			res.PDFReports++
 			e.Logger.Infof("Saved PDF report for %s", fn)
-		} else if rep.PDF == -1 {
+		case -1:
 			res.PDFErrors++
 		}
 
-		if rep.WORD == 1 {
+		switch rep.WORD {
+		case 1:
 			res.WORDReports++
 			e.Logger.Infof("Saved Word report for %s", fn)
-		} else if rep.WORD == -1 {
+		case -1:
 			res.WORDErrors++
 		}
 

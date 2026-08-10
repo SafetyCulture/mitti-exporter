@@ -1,4 +1,4 @@
-# safetyculture-exporter
+# mitti-exporter
 
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
 
@@ -1062,7 +1062,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ```
-**github.com/SafetyCulture/safetyculture-exporter**
+**github.com/SafetyCulture/mitti-exporter**
 
 Licensed under `Apache-2.0`
 

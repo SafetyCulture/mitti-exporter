@@ -4,11 +4,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/exporter"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/exporter"
 )
 
 // getTemporaryJSONExporter creates a JSONExporter that writes to a temp folder
-func getTemporaryJSONExporter() exporter.SafetyCultureJSONExporter {
+func getTemporaryJSONExporter() exporter.MittiJSONExporter {
 	dir, err := os.MkdirTemp("", "export")
 	if err != nil {
 		log.Fatal(err)

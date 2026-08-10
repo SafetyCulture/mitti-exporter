@@ -15,9 +15,9 @@ import (
 	"testing"
 	"time"
 
-	exporterAPI "github.com/SafetyCulture/safetyculture-exporter/pkg/api"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
+	exporterAPI "github.com/SafetyCulture/mitti-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
 	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"

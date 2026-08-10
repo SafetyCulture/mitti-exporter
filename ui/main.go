@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter-ui/internal/version"
+	"github.com/SafetyCulture/mitti-exporter-ui/internal/version"
 	"github.com/wailsapp/wails/v2/pkg/options/mac"
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 
-	extLogger "github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	extLogger "github.com/SafetyCulture/mitti-exporter/pkg/logger"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -33,7 +33,7 @@ func main() {
 
 	// Create application with options
 	err = wails.Run(&options.App{
-		Title:     "SafetyCulture Exporter",
+		Title:     "Mitti Exporter",
 		Width:     1080,
 		Height:    780,
 		MinWidth:  1080,
@@ -55,7 +55,7 @@ func main() {
 			WebviewIsTransparent: false,
 			WindowIsTranslucent:  false,
 			About: &mac.AboutInfo{
-				Title:   "SafetyCulture Exporter",
+				Title:   "Mitti Exporter",
 				Message: fmt.Sprintf("Version %v\n\nCopyright \u00a9 %v\nSafetyCulture Pty Ltd.\n\nTerms: https://safetyculture.com/legal/terms-and-conditions\nPrivacy: https://safetyculture.com/legal/privacy-policy\n\nSupport: https://help.safetyculture.com/", version.GetVersion(), time.Now().Year()),
 				Icon:    icon,
 			},

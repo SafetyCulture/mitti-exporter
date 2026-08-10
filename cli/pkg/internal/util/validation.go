@@ -3,7 +3,7 @@ package util
 import (
 	"net/http"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/logger"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -18,7 +18,7 @@ func Check(err error, msg string) {
 	}
 
 	if err != nil {
-		lgr.Fatal(errors.Wrapf(err, msg))
+		lgr.Fatal(errors.Wrap(err, msg))
 	}
 }
 
@@ -31,9 +31,9 @@ func CheckFeedError(logger *zap.SugaredLogger, err error, msg string) {
 	switch e := err.(type) {
 	case HTTPError:
 		if e.StatusCode == http.StatusForbidden {
-			logger.Error(errors.Wrapf(err, msg))
+			logger.Error(errors.Wrap(err, msg))
 			return
 		}
 	}
-	logger.Fatal(errors.Wrapf(err, msg))
+	logger.Fatal(errors.Wrap(err, msg))
 }

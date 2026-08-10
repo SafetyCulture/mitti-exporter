@@ -6,11 +6,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/api"
 	"github.com/stretchr/testify/require"
 
-	exportermock "github.com/SafetyCulture/safetyculture-exporter/pkg/internal/exporter/mocks"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/inspections"
+	exportermock "github.com/SafetyCulture/mitti-exporter/pkg/internal/exporter/mocks"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/inspections"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"gopkg.in/h2non/gock.v1"

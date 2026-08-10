@@ -7,7 +7,7 @@ on:
       - "v*.*.*"
 
 env:
-  GO_VERSION: '1.23'
+  GO_VERSION: '1.25.12'
 
 jobs:
   cli-linux-amd64:
@@ -28,22 +28,22 @@ jobs:
         working-directory: cli
         run: |
           GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -v \
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter/internal/app/version.version=${{ github.ref_name }}" \
-            -o safetyculture-exporter ./cmd/safetyculture-exporter/main.go
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter/internal/app/version.version=${{ github.ref_name }}" \
+            -o mitti-exporter ./cmd/mitti-exporter/main.go
 
       - name: Package artifact
         working-directory: cli
         run: |
-          mkdir safetyculture-exporter-cli
-          cp safetyculture-exporter THIRD_PARTY_NOTICES.md ../README.md safetyculture-exporter-cli/
-          zip -r safetyculture-exporter-linux-amd64.zip safetyculture-exporter-cli
-          rm -rf safetyculture-exporter-cli
+          mkdir mitti-exporter-cli
+          cp mitti-exporter THIRD_PARTY_NOTICES.md ../README.md mitti-exporter-cli/
+          zip -r mitti-exporter-linux-amd64.zip mitti-exporter-cli
+          rm -rf mitti-exporter-cli
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cli-linux-amd64
-          path: cli/safetyculture-exporter-linux-amd64.zip
+          path: cli/mitti-exporter-linux-amd64.zip
 
   cli-windows-amd64:
     name: CLI windows/amd64
@@ -66,22 +66,22 @@ jobs:
         working-directory: cli
         run: |
           GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc go build -v \
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter/internal/app/version.version=${{ github.ref_name }}" \
-            -o safetyculture-exporter.exe ./cmd/safetyculture-exporter/main.go
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter/internal/app/version.version=${{ github.ref_name }}" \
+            -o mitti-exporter.exe ./cmd/mitti-exporter/main.go
 
       - name: Package artifact
         working-directory: cli
         run: |
-          mkdir safetyculture-exporter-cli
-          cp safetyculture-exporter.exe THIRD_PARTY_NOTICES.md ../README.md safetyculture-exporter-cli/
-          zip -r safetyculture-exporter-windows-x86_64.zip safetyculture-exporter-cli
-          rm -rf safetyculture-exporter-cli
+          mkdir mitti-exporter-cli
+          cp mitti-exporter.exe THIRD_PARTY_NOTICES.md ../README.md mitti-exporter-cli/
+          zip -r mitti-exporter-windows-x86_64.zip mitti-exporter-cli
+          rm -rf mitti-exporter-cli
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cli-windows-amd64
-          path: cli/safetyculture-exporter-windows-x86_64.zip
+          path: cli/mitti-exporter-windows-x86_64.zip
 
   cli-darwin-amd64:
     name: CLI darwin/amd64
@@ -112,26 +112,26 @@ jobs:
         working-directory: cli
         run: |
           GOOS=darwin GOARCH=amd64 CGO_ENABLED=1 go build -v \
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter/internal/app/version.version=${{ github.ref_name }}" \
-            -o safetyculture-exporter ./cmd/safetyculture-exporter/main.go
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter/internal/app/version.version=${{ github.ref_name }}" \
+            -o mitti-exporter ./cmd/mitti-exporter/main.go
 
       - name: Codesign binary
         working-directory: cli
-        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ./safetyculture-exporter -v
+        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ./mitti-exporter -v
 
       - name: Package artifact
         working-directory: cli
         run: |
-          mkdir safetyculture-exporter-cli
-          cp safetyculture-exporter THIRD_PARTY_NOTICES.md ../README.md safetyculture-exporter-cli/
-          zip -r safetyculture-exporter-darwin-amd64.zip safetyculture-exporter-cli
-          rm -rf safetyculture-exporter-cli
+          mkdir mitti-exporter-cli
+          cp mitti-exporter THIRD_PARTY_NOTICES.md ../README.md mitti-exporter-cli/
+          zip -r mitti-exporter-darwin-amd64.zip mitti-exporter-cli
+          rm -rf mitti-exporter-cli
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cli-darwin-amd64
-          path: cli/safetyculture-exporter-darwin-amd64.zip
+          path: cli/mitti-exporter-darwin-amd64.zip
 
   cli-darwin-arm64:
     name: CLI darwin/arm64
@@ -162,26 +162,26 @@ jobs:
         working-directory: cli
         run: |
           GOOS=darwin GOARCH=arm64 CGO_ENABLED=1 go build -v \
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter/internal/app/version.version=${{ github.ref_name }}" \
-            -o safetyculture-exporter ./cmd/safetyculture-exporter/main.go
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter/internal/app/version.version=${{ github.ref_name }}" \
+            -o mitti-exporter ./cmd/mitti-exporter/main.go
 
       - name: Codesign binary
         working-directory: cli
-        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ./safetyculture-exporter -v
+        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ./mitti-exporter -v
 
       - name: Package artifact
         working-directory: cli
         run: |
-          mkdir safetyculture-exporter-cli
-          cp safetyculture-exporter THIRD_PARTY_NOTICES.md ../README.md safetyculture-exporter-cli/
-          zip -r safetyculture-exporter-darwin-arm64.zip safetyculture-exporter-cli
-          rm -rf safetyculture-exporter-cli
+          mkdir mitti-exporter-cli
+          cp mitti-exporter THIRD_PARTY_NOTICES.md ../README.md mitti-exporter-cli/
+          zip -r mitti-exporter-darwin-arm64.zip mitti-exporter-cli
+          rm -rf mitti-exporter-cli
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cli-darwin-arm64
-          path: cli/safetyculture-exporter-darwin-arm64.zip
+          path: cli/mitti-exporter-darwin-arm64.zip
 
   ui-macos:
     name: UI macOS (universal)
@@ -225,28 +225,28 @@ jobs:
         working-directory: ui
         run: |
           wails build -platform darwin/universal -clean \
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter-ui/internal/version.version=${{ github.ref_name }}"
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter-ui/internal/version.version=${{ github.ref_name }}"
 
       - name: Codesign app bundle
-        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ui/build/bin/SafetyCulture-Exporter.app -v
+        run: codesign --force -s "${{ secrets.MAC_SIGNING_CERT_NAME }}" --options runtime ui/build/bin/Mitti-Exporter.app -v
 
       - name: Create notarization zip
-        run: ditto -c -k --keepParent ui/build/bin/SafetyCulture-Exporter.app ./safetyculture-exporter-ui-darwin-universal.zip
+        run: ditto -c -k --keepParent ui/build/bin/Mitti-Exporter.app ./mitti-exporter-ui-darwin-universal.zip
 
       - name: Notarize with Apple
         run: |
           echo "${{ secrets.APPSTORE_API_KEY }}" > appstore_api_key.p8
-          xcrun notarytool submit safetyculture-exporter-ui-darwin-universal.zip \
+          xcrun notarytool submit mitti-exporter-ui-darwin-universal.zip \
             --key appstore_api_key.p8 \
             --key-id "${{ secrets.APPSTORE_API_KEY_ID }}" \
             --issuer "${{ secrets.APPSTORE_API_ISSUER_ID }}" \
             --wait
 
       - name: Staple notarization ticket
-        run: xcrun stapler staple ui/build/bin/SafetyCulture-Exporter.app
+        run: xcrun stapler staple ui/build/bin/Mitti-Exporter.app
 
       - name: Re-zip with staple ticket
-        run: ditto -c -k --keepParent ui/build/bin/SafetyCulture-Exporter.app ./safetyculture-exporter-ui-darwin-universal.zip
+        run: ditto -c -k --keepParent ui/build/bin/Mitti-Exporter.app ./mitti-exporter-ui-darwin-universal.zip
 
       - name: Clean up sensitive files
         if: always()
@@ -256,7 +256,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ui-macos
-          path: safetyculture-exporter-ui-darwin-universal.zip
+          path: mitti-exporter-ui-darwin-universal.zip
 
   ui-windows:
     name: UI Windows (amd64)
@@ -295,7 +295,7 @@ jobs:
           $GP = (go env GOPATH)
           $env:path = "$env:path;$GP\bin"
           wails build -platform windows/amd64 -clean -skipbindings `
-            -ldflags "-s -w -X github.com/SafetyCulture/safetyculture-exporter-ui/internal/version.version=${{ github.ref_name }}"
+            -ldflags "-s -w -X github.com/SafetyCulture/mitti-exporter-ui/internal/version.version=${{ github.ref_name }}"
 
       - name: Sign with CodeSignTool
         uses: sslcom/esigner-codesign@v1.3.2
@@ -305,7 +305,7 @@ jobs:
           password: ${{ secrets.SSL_DOT_COM_PASSWORD }}
           credential_id: ${{ secrets.CREDENTIAL_ID }}
           totp_secret: ${{ secrets.TOTP_SECRET }}
-          file_path: ${{ github.workspace }}\ui\build\bin\safetyculture-exporter-ui.exe
+          file_path: ${{ github.workspace }}\ui\build\bin\mitti-exporter-ui.exe
           dir_path: ${{ github.workspace }}\ui\build\bin
           override: true
           signing_method: v2
@@ -314,13 +314,13 @@ jobs:
       - name: Copy signed binary
         shell: pwsh
         run: |
-          Copy-Item -Path .\ui\build\bin\safetyculture-exporter-ui.exe -Destination .\safetyculture-exporter-ui-windows-x86_64.exe
+          Copy-Item -Path .\ui\build\bin\mitti-exporter-ui.exe -Destination .\mitti-exporter-ui-windows-x86_64.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ui-windows
-          path: safetyculture-exporter-ui-windows-x86_64.exe
+          path: mitti-exporter-ui-windows-x86_64.exe
 
   release:
     name: Create GitHub Release

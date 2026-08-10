@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	exporterAPI "github.com/SafetyCulture/safetyculture-exporter/pkg/api"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/httpapi"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/report"
+	exporterAPI "github.com/SafetyCulture/mitti-exporter/pkg/api"
+	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/report"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/h2non/gock.v1"
 )

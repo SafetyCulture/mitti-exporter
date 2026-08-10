@@ -1,17 +1,7 @@
 ---
-run:
-  # Default is 1m, which the CLI module's lint run exceeds on a cold cache in CI.
-  timeout: 2m
-
-linters-settings:
-  dupl:
-    threshold: 100
-  goconst:
-    min-len: 2
-    min-occurrences: 2
-
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
     # Original disables
     - misspell  # Messes with package imports
@@ -22,11 +12,16 @@ linters:
     - godox  # We use TODO to plan longer-term fixes
     - lll  # Line-length-linter
     - wsl  # Adds unnecessary complexity
+    # Linters new in golangci-lint v2 (migrated from v1 in the Go 1.25 toolchain
+    # bump) — to be triaged and re-enabled incrementally, same as below
+    - embeddedstructfieldcheck
+    - funcorder
+    - gomodguard  # deprecated in v2.12.0, replaced by gomodguard_v2
+    - modernize
+    - noinlineerr
+    - wsl_v5  # v2 successor to wsl, which was already disabled above
     # Linters added after v1.21.0 — to be triaged and re-enabled incrementally
-    - goimports
     - predeclared
-    - tenv  # Deprecated in v1.64.0, replaced by usetesting
-    - usestdlibvars
     - bodyclose
     - canonicalheader
     - containedctx
@@ -43,11 +38,9 @@ linters:
     - fatcontext
     - forbidigo
     - forcetypeassert
-    - gci
     - goconst
     - gocritic
     - godot
-    - gofumpt
     - gosec
     - govet
     - interfacebloat
@@ -63,7 +56,6 @@ linters:
     - prealloc
     - recvcheck
     - revive
-    - stylecheck
     - tagalign
     - tagliatelle
     - testifylint
@@ -71,7 +63,34 @@ linters:
     - thelper
     - unparam
     - unused
+    - usestdlibvars
     - usetesting
     - varnamelen
     - whitespace
     - wrapcheck
+  settings:
+    dupl:
+      threshold: 100
+    goconst:
+      min-len: 2
+      min-occurrences: 2
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

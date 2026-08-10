@@ -38,11 +38,11 @@
 
     .cancelled {
         background-color: #FFF0F1;
-        color: #A9282E;
+        color: #B02010;
     }
 
     .error {
-        background-color: #A9282E;
+        background-color: #B02010;
         color: #FFF0F1;
     }
 </style>

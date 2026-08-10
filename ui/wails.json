@@ -1,7 +1,7 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "SafetyCulture-Exporter",
-  "outputfilename": "safetyculture-exporter-ui",
+  "name": "Mitti-Exporter",
+  "outputfilename": "mitti-exporter-ui",
   "wailsjsdir": "./frontend",
   "frontend:install": "pnpm install",
   "frontend:build": "pnpm run build",

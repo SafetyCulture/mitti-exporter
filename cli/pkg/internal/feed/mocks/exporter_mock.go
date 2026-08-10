@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	feed "github.com/SafetyCulture/safetyculture-exporter/pkg/internal/feed"
+	feed "github.com/SafetyCulture/mitti-exporter/pkg/internal/feed"
 	mock "github.com/stretchr/testify/mock"
 
 	time "time"

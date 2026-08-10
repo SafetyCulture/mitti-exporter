@@ -54,7 +54,7 @@
     }
 
     .accent {
-        color: #4740D4;
+        color: #4A42C8;
     }
 
     .copyright {

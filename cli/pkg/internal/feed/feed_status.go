@@ -121,7 +121,7 @@ func (e *ExportStatus) PurgeFinished() {
 	e.lock.Lock()
 	pendingFeeds := map[string]*ExportStatusItem{}
 	for key, item := range e.status {
-		if !(item.Started && item.Finished) {
+		if !item.Started || !item.Finished {
 			pendingFeeds[key] = item
 		}
 	}

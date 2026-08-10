@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/SafetyCulture/safetyculture-exporter/internal/app/version"
-	"github.com/SafetyCulture/safetyculture-exporter/pkg/internal/diagnostics"
+	"github.com/SafetyCulture/mitti-exporter/internal/app/version"
+	"github.com/SafetyCulture/mitti-exporter/pkg/internal/diagnostics"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
