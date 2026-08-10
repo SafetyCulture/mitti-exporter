@@ -44,7 +44,7 @@ func (e *SQLExporter) SupportsUpsert() bool {
 
 // ParameterLimit returns the number of parameters supported by the target DB
 func (e *SQLExporter) ParameterLimit() int {
-	switch e.DB.Dialector.Name() {
+	switch e.DB.Name() {
 	case "sqlserver":
 		return 2100
 	case "sqlite":
