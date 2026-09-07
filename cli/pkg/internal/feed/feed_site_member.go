@@ -20,7 +20,7 @@ type SiteMember struct {
 	ExportedAt time.Time `json:"exported_at" csv:"exported_at" gorm:"autoUpdateTime"`
 }
 
-// SiteMemberFeed is a representation of the sites feed
+// SiteMemberFeed is a representation of the site members feed
 type SiteMemberFeed struct {
 }
 

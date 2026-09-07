@@ -197,7 +197,7 @@ func (f *ActionFeed) processDeletedActions(ctx context.Context, apiClient *httpa
 			if err != nil {
 				return events.NewEventErrorWithMessage(err,
 					events.ErrorSeverityWarning, events.ErrorSubSystemDB, false,
-					"unable to database records")
+					"unable to update database records")
 			}
 			lg.Infof("there were %d rows marked as deleted", rowsUpdated)
 		}

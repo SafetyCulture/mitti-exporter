@@ -13,7 +13,7 @@ import (
 	"github.com/SafetyCulture/mitti-exporter/pkg/internal/events"
 )
 
-// SheqsyDepartment represents a user in sheqsy
+// SheqsyDepartment represents a department in sheqsy
 type SheqsyDepartment struct {
 	DepartmentUID string    `json:"departmentUId" csv:"department_uid" gorm:"primarykey;column:department_uid;size:36"`
 	DepartmentID  int       `json:"departmentId" csv:"department_id" gorm:"column:department_id"`
@@ -24,7 +24,7 @@ type SheqsyDepartment struct {
 	ExportedAt    time.Time `json:"exported_at" csv:"exported_at" gorm:"autoUpdateTime"`
 }
 
-// SheqsyDepartmentFeed is a representation of the users feed
+// SheqsyDepartmentFeed is a representation of the departments feed
 type SheqsyDepartmentFeed struct{}
 
 // Name is the name of the feed
