@@ -344,7 +344,7 @@ func (f *InspectionFeed) processDeletedInspections(ctx context.Context, apiClien
 			if err != nil {
 				return events.NewEventErrorWithMessage(err,
 					events.ErrorSeverityWarning, events.ErrorSubSystemDB, false,
-					"unable to database records")
+					"unable to update database records")
 			}
 			lg.Infof("there were %d rows marked as deleted", rowsUpdated)
 		}
