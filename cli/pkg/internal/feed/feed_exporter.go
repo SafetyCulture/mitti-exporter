@@ -343,6 +343,10 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 		NewAssetMaintenanceFeed(e.configuration.ExportAssetLimit),
 		NewCredentialTypeFeed(defaultFeedLimit),
 		NewCredentialFeed(defaultFeedLimit),
+		&LoneWorkerJobFeed{
+			Incremental: true,
+			Limit:       defaultFeedLimit,
+		},
 	}
 }
 

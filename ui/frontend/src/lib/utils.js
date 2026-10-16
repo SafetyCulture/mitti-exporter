@@ -19,4 +19,5 @@ export const allTables = ['inspections', 'inspection_items', 'schedules', 'templ
     'schedules_v2', 'schedule_assignees_v2', 'schedule_occurrences_v2', 'action_fields', 'issue_relations',
     'investigations', 'investigation_fields', 'investigation_detail_fields', 'investigation_relationships',
     'contractor_companies', 'contractor_company_documents', 'contractor_company_members',
-    'maintenance_programs', 'maintenance_plans', 'assets_maintenance', 'credential_types', 'credentials'];
+    'maintenance_programs', 'maintenance_plans', 'assets_maintenance', 'credential_types', 'credentials',
+    'lone_worker_jobs'];

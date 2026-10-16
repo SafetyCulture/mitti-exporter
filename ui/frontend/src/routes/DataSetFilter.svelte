@@ -82,6 +82,10 @@
         {
             "left":  { "id": "credential_types", "name": "Credential Types"},
             "right": { "id": "credentials", "name": "Credentials"}
+        },
+        {
+            "left":  { "id": "lone_worker_jobs", "name": "Lone Worker Jobs"},
+            "right": null
         }
     ]
 

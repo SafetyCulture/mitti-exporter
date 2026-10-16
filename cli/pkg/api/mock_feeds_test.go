@@ -449,4 +449,10 @@ func initMockEmptyNewFeeds() {
 			Reply(200).
 			BodyString(`{"metadata":{},"data":[]}`)
 	}
+
+	// Feeds with their own export test, which tests that do not assert on them still need to answer.
+	gock.New("http://localhost:9999").
+		Get("^/loneworker/v1/feed/jobs$").
+		Reply(200).
+		BodyString(`{"metadata":{},"data":[]}`)
 }

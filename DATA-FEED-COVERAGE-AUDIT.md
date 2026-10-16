@@ -144,6 +144,7 @@ The reference lists what look like two generations of the same feed under differ
 | **Assets maintenance details** | `/assets/v1/feed/assets_maintenance` | `assets_maintenance` | ✅ added |
 | **Maintenance plans** | `/assets/v1/feed/maintenance_plans` | `maintenance_plans` | ✅ added |
 | **Maintenance programs** | `/assets/v1/feed/maintenance_programs` | `maintenance_programs` | ✅ added |
+| **Lone Worker jobs** | `/loneworker/v1/feed/jobs` | `lone_worker_jobs` | ✅ added (incremental via `modified_after`) |
 
 *(SHEQSY feeds — employees, departments, department employees, activities, shifts — are separate and not documented under Data Feeds; out of scope for this audit.)*
 
