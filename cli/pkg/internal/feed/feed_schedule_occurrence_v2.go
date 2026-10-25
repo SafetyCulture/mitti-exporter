@@ -2,7 +2,6 @@ package feed
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 	"time"
 )
@@ -15,12 +14,12 @@ type ScheduleOccurrenceV2 struct {
 	OccurrenceID     string     `json:"occurrence_id" csv:"occurrence_id" gorm:"size:128"`
 	TemplateID       string     `json:"template_id" csv:"template_id" gorm:"size:100"`
 	OrganisationID   string     `json:"organisation_id" csv:"organisation_id" gorm:"size:37"`
-	StartTime        *time.Time `json:"-" csv:"start_time"`
-	DueTime          *time.Time `json:"-" csv:"due_time"`
-	MissTime         *time.Time `json:"-" csv:"miss_time"`
+	StartTime        *time.Time `json:"start_time" csv:"start_time"`
+	DueTime          *time.Time `json:"due_time" csv:"due_time"`
+	MissTime         *time.Time `json:"miss_time" csv:"miss_time"`
 	OccurrenceStatus string     `json:"occurrence_status" csv:"occurrence_status" gorm:"size:20"`
 	AuditID          string     `json:"audit_id" csv:"audit_id" gorm:"size:100"`
-	CompletedAt      *time.Time `json:"-" csv:"completed_at"`
+	CompletedAt      *time.Time `json:"completed_at" csv:"completed_at"`
 	ExportedAt       time.Time  `json:"-" csv:"exported_at" gorm:"autoUpdateTime"`
 	UserID           string     `json:"assignee_id" csv:"user_id" gorm:"size:256"`
 	AssigneeStatus   string     `json:"assignee_status" csv:"assignee_status" gorm:"size:20"`
@@ -52,37 +51,12 @@ func (o *ScheduleOccurrenceV2) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	// The times are strings, as the API returns an empty miss_time for schedules without an overdue period
 	var api struct {
-		StartTime         string   `json:"start_time"`
-		DueTime           string   `json:"due_time"`
-		MissTime          string   `json:"miss_time"`
-		CompletedAt       string   `json:"completed_at"`
 		AssigneeFrom      string   `json:"assignee_from"`
 		AssigneeFromNames []string `json:"assignee_from_names"`
 	}
 	if err := json.Unmarshal(b, &api); err != nil {
 		return err
-	}
-
-	times := []struct {
-		value string
-		field **time.Time
-	}{
-		{api.StartTime, &o.StartTime},
-		{api.DueTime, &o.DueTime},
-		{api.MissTime, &o.MissTime},
-		{api.CompletedAt, &o.CompletedAt},
-	}
-	for _, t := range times {
-		if t.value == "" {
-			continue
-		}
-		parsed, err := time.Parse(time.RFC3339Nano, t.value)
-		if err != nil {
-			return fmt.Errorf("parse occurrence time: %w", err)
-		}
-		*t.field = &parsed
 	}
 
 	o.Note = o.WontDoNote
