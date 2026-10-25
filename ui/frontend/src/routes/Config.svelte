@@ -129,7 +129,7 @@
 	let date = convertStringToDate($shadowConfig["Export"]["ModifiedAfter"], selectedTimeZone);
 
 	// NEW SCHEDULES FILTERS
-	let scheduleEndDate = [undefined, "", zeroDate].includes($shadowConfig["Export"]["Schedule"]["EndDate"])
+	let scheduleEndDate = $shadowConfig["Export"]["Schedule"]["EndDate"] === zeroDate
 		? null
 		: dayjs($shadowConfig["Export"]["Schedule"]["EndDate"]).tz(selectedTimeZone).toDate()
 	if (!$shadowConfig["Export"]["Schedule"]["Statuses"]?.length) {

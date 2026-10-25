@@ -190,11 +190,10 @@ func withScheduleStatuses(path string, statuses []string) string {
 // statuses filters on the schedule status (ACTIVE, PAUSED, FINISHED); it is empty for every status
 func NewScheduleV2Feed(templateIDs []string, statuses []string) Feed {
 	return &rowFeed[ScheduleV2]{
-		name:         "new_schedules",
-		initialURL:   withScheduleStatuses("/scheduling/v1/feed/schedules", statuses),
-		primaryKey:   []string{"schedule_id"},
-		order:        "schedule_id",
-		hasRemaining: false, // FeedMetadataSimple has no remaining_records
+		name:       "new_schedules",
+		initialURL: withScheduleStatuses("/scheduling/v1/feed/schedules", statuses),
+		primaryKey: []string{"schedule_id"},
+		order:      "schedule_id",
 		params: GetFeedParams{
 			TemplateIDs: templateIDs,
 			Limit:       maxSchedulingFeedLimit,
