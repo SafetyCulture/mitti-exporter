@@ -64,7 +64,7 @@ For orgs migrated to the new Schedules experience, the legacy feeds return incom
 - Pagination: new feeds return `metadata.next_page` (full path) **plus** `next_page_token`. `DrainFeed` already follows `metadata.next_page`, so it should mostly work — **but** `s12.common.v1.FeedMetadataSimple` has **no `remaining_records`** field. The exporter's progress/status reporting (`status.UpdateStatus(f.Name(), resp.Metadata.RemainingRecords, ...)`) and `HasRemainingInformation()` assume it exists, so new-feed implementations must handle its absence (return `false` from `HasRemainingInformation()`).
 - Query params: `show_active`/`show_finished`/`show_paused` are **booleans** on the new service (legacy: string enums); the exporter currently passes neither.
 - The new `schedules` response also has `total_records` at the top level.
-- ID formats differ (`scheduleitem_{id}` etc.) — consider separate table names (e.g. `schedules_v2`) rather than overwriting legacy tables, since orgs not yet migrated still need legacy feeds.
+- ID formats differ (`scheduleitem_{id}` etc.) — consider separate table names (e.g. `new_schedules`) rather than overwriting legacy tables, since orgs not yet migrated still need legacy feeds.
 
 ---
 
@@ -127,9 +127,9 @@ The reference lists what look like two generations of the same feed under differ
 | Schedules (legacy) | `/feed/schedules` | `schedules` | ⚠️ legacy-only |
 | Schedule assignees (legacy) | `/feed/schedule_assignees` | `schedule_assignees` | ⚠️ legacy-only |
 | Schedule occurrences (legacy) | `/feed/schedule_occurrences` | `schedule_occurrences` | ⚠️ legacy-only |
-| **Schedules (new)** | `/scheduling/v1/feed/schedules` | `schedules_v2` | ✅ added |
-| **Schedule assignees (new)** | `/scheduling/v1/feed/schedule_assignees` | `schedule_assignees_v2` | ✅ added |
-| **Schedule occurrences (new)** | `/scheduling/v1/feed/schedule_occurrences` | `schedule_occurrences_v2` | ✅ added |
+| **New Schedules** | `/scheduling/v1/feed/schedules` | `new_schedules` | ✅ added |
+| **New Schedule Assignees** | `/scheduling/v1/feed/schedule_assignees` | `new_schedule_assignees` | ✅ added |
+| **New Schedule Occurrences** | `/scheduling/v1/feed/schedule_occurrences` | `new_schedule_occurrences` | ✅ added |
 | **Action fields** | `/tasks/v1/feed/action_fields` (also documented at `/feed/action_fields`, identical schema, but that path returned 504 Gateway Timeout on every attempt against a real org on 2026-10-14) | `action_fields` | ✅ added |
 | **Issue relations** | `/feed/issue_relations` | `issue_relations` | ✅ added |
 | **Investigations** | `/incidents/v1/feed/investigations` | `investigations` | ✅ added |

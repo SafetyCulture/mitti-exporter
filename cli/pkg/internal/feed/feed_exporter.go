@@ -68,6 +68,8 @@ type ExporterFeedCfg struct {
 	ExportAssetLimit                      int
 	ExportCourseProgressLimit             int
 	ExportScheduleResumeDownload          bool
+	ExportScheduleEndDate                 time.Time
+	ExportScheduleStatuses                []string
 	MaxConcurrentGoRoutines               int
 }
 
@@ -326,6 +328,11 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 			Incremental: true,
 			Limit:       250,
 		},
+		NewScheduleV2Feed(e.configuration.ExportTemplateIds, e.configuration.ExportScheduleStatuses),
+		NewScheduleAssigneeV2Feed(e.configuration.ExportTemplateIds, e.configuration.ExportScheduleStatuses),
+		NewScheduleOccurrenceV2Feed(
+			e.configuration.ExportTemplateIds, e.configuration.ExportModifiedAfterTime, e.configuration.ExportScheduleEndDate,
+		),
 		NewActionFieldFeed(e.configuration.ExportActionLimit),
 		NewIssueRelationFeed(e.configuration.ExportIssueLimit),
 		NewInvestigationFeed(defaultFeedLimit),

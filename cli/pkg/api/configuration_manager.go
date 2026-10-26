@@ -74,7 +74,9 @@ type ExporterConfiguration struct {
 			IncludeFullHierarchy bool `yaml:"include_full_hierarchy"`
 		} `yaml:"site"`
 		Schedule struct {
-			ResumeDownload bool `yaml:"resume_download"`
+			ResumeDownload bool     `yaml:"resume_download"`
+			Statuses       []string `yaml:"statuses"`
+			EndDate        mTime    `yaml:"end_date"`
 		} `yaml:"schedule"`
 		Tables      []string `yaml:"tables"`
 		TemplateIds []string `yaml:"template_ids"`
@@ -379,6 +381,8 @@ func (ec *ExporterConfiguration) ToExporterConfig() *feed.ExporterFeedCfg {
 		ExportInspectionWebReportLink:         ec.Export.Inspection.WebReportLink,
 		ExportInspectionItemsSkipFields:       ec.Export.InspectionItems.SkipFields,
 		ExportScheduleResumeDownload:          ec.Export.Schedule.ResumeDownload,
+		ExportScheduleEndDate:                 ec.Export.Schedule.EndDate.Time,
+		ExportScheduleStatuses:                ec.Export.Schedule.Statuses,
 		ExportIncremental:                     ec.Export.Incremental,
 		ExportInspectionLimit:                 ec.Export.Inspection.Limit,
 		ExportMedia:                           ec.Export.Media,

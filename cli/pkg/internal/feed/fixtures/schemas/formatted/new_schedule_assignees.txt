@@ -1,0 +1,13 @@
++-----------------+----------+-------------+
+|      NAME       |   TYPE   | PRIMARY KEY |
++-----------------+----------+-------------+
+| id              | TEXT     | true        |
+| schedule_id     | TEXT     |             |
+| assignee_id     | TEXT     |             |
+| organisation_id | TEXT     |             |
+| type            | TEXT     |             |
+| name            | TEXT     |             |
+| exported_at     | datetime |             |
+| target_id       | TEXT     | true        |
+| target_type     | TEXT     |             |
++-----------------+----------+-------------+

@@ -20,7 +20,7 @@ import (
 
 var cfgFile string
 var connectionFlags, dbFlags, sqliteFlags, csvFlags, exportFlags, mediaFlags, inspectionFlags, actionFlags,
-	templatesFlag, tablesFlag, schemasFlag, reportFlags, sitesFlags *flag.FlagSet
+	templatesFlag, tablesFlag, schemasFlag, reportFlags, sitesFlags, schedulesFlags *flag.FlagSet
 
 // RootCmd represents the base command when called without any subcommands.
 var RootCmd = &cobra.Command{
@@ -73,9 +73,9 @@ func init() {
 	bindFlags()
 
 	// Add sub-commands
-	addCmd(export.SQLCmd(), connectionFlags, exportFlags, dbFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags)
-	addCmd(export.CSVCmd(), connectionFlags, exportFlags, csvFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags)
-	addCmd(export.SQLiteCmd(), connectionFlags, exportFlags, sqliteFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags)
+	addCmd(export.SQLCmd(), connectionFlags, exportFlags, dbFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags, schedulesFlags)
+	addCmd(export.CSVCmd(), connectionFlags, exportFlags, csvFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags, schedulesFlags)
+	addCmd(export.SQLiteCmd(), connectionFlags, exportFlags, sqliteFlags, inspectionFlags, actionFlags, templatesFlag, tablesFlag, schemasFlag, mediaFlags, sitesFlags, schedulesFlags)
 	addCmd(export.InspectionJSONCmd(), exportFlags, connectionFlags, inspectionFlags, actionFlags, templatesFlag)
 	addCmd(export.ReportCmd(), connectionFlags, exportFlags, inspectionFlags, actionFlags, templatesFlag, reportFlags)
 	addCmd(export.PrintSchemaCmd())
@@ -151,6 +151,10 @@ func configFlags() {
 	sitesFlags = flag.NewFlagSet("sites", flag.ContinueOnError)
 	sitesFlags.Bool("site-include-deleted", false, "Include deleted sites in the sites table (default false)")
 	sitesFlags.Bool("site-include-full-hierarchy", true, "Include full sites hierarchy in table e.g. areas, regions, etc (default true)")
+
+	schedulesFlags = flag.NewFlagSet("schedules", flag.ContinueOnError)
+	schedulesFlags.String("schedule-end-date", "", "Return new schedule occurrences due before this date, see readme for supported formats (default 1 month ahead)")
+	schedulesFlags.StringSlice("schedule-statuses", []string{}, "Statuses of the new schedules and schedule assignees to export: ACTIVE, PAUSED, FINISHED (default all)")
 }
 
 func bindFlags() {
@@ -194,6 +198,9 @@ func bindFlags() {
 
 	util.Check(viper.BindPFlag("export.site.include_deleted", sitesFlags.Lookup("site-include-deleted")), "while binding flag")
 	util.Check(viper.BindPFlag("export.site.include_full_hierarchy", sitesFlags.Lookup("site-include-full-hierarchy")), "while binding flag")
+
+	util.Check(viper.BindPFlag("export.schedule.end_date", schedulesFlags.Lookup("schedule-end-date")), "while binding flag")
+	util.Check(viper.BindPFlag("export.schedule.statuses", schedulesFlags.Lookup("schedule-statuses")), "while binding flag")
 
 	util.Check(viper.BindPFlag("report.format", reportFlags.Lookup("format")), "while binding flag")
 	util.Check(viper.BindPFlag("report.filename_convention", reportFlags.Lookup("filename-convention")), "while binding flag")

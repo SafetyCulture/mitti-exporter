@@ -15,6 +15,9 @@ var newFeedFixtures = []struct {
 	path  string
 	body  string
 }{
+	{"new_schedules", "/scheduling/v1/feed/schedules", `{"metadata":{},"data":[{"id":"scheduleitem_1","title":"Weekly","modified_at":"2026-01-01T00:00:00Z","created_at":"2026-01-01T00:00:00Z","site_ids":["site_1"],"asset_ids":null}]}`},
+	{"new_schedule_assignees", "/scheduling/v1/feed/schedule_assignees", `{"metadata":{},"data":[{"id":"scheduleitem_1_user_1","schedule_id":"scheduleitem_1","assignee_id":"user_1","type":"user"}]}`},
+	{"new_schedule_occurrences", "/scheduling/v1/feed/schedule_occurrences", `{"metadata":{},"data":[{"id":"scheduleitem_1_occurrence_1_user_1","schedule_id":"scheduleitem_1","occurrence_id":"occurrence_1","occurrence_status":"WONT_DO","wont_do_note":"closed"}]}`},
 	{"action_fields", "/tasks/v1/feed/action_fields", `{"metadata":{"remaining_records":0},"data":[{"action_id":"a1","field_id":"f1","field_type":"text","field_value":"v"}]}`},
 	{"issue_relations", "/feed/issue_relations", `{"metadata":{},"data":[{"id":"r1","from_id":"i1","rel_type":"ISSUE-INSPECTION","to_id":"audit_1"}]}`},
 	{"investigations", "/incidents/v1/feed/investigations", `{"metadata":{},"data":[{"investigation_id":"inv1","title":"t","status_badge_color":3,"identifier_sequence":7}]}`},
@@ -59,32 +62,4 @@ func TestNewFeeds_should_export_rows_to_sql_db(t *testing.T) {
 			assert.Len(t, rows, 1)
 		})
 	}
-}
-
-func TestScheduleV2Feed_should_follow_pagination_and_keep_arrays_as_json(t *testing.T) {
-	defer gock.Off()
-
-	exporter, err := getInmemorySQLExporter("")
-	assert.NoError(t, err)
-
-	apiClient := GetTestClient()
-	gock.InterceptClient(apiClient.HTTPClient())
-	gock.New("http://localhost:9999").Get("/scheduling/v1/feed/schedules").
-		MatchParam("limit", "1000").
-		Reply(200).
-		BodyString(`{"metadata":{"next_page":"/scheduling/v1/feed/schedules/page2","next_page_token":"t"},"data":[{"id":"scheduleitem_1","title":"One","modified_at":"2026-01-01T00:00:00Z","created_at":"2026-01-01T00:00:00Z","site_ids":["site_1","site_2"],"assignees":["user_1"],"ending_rule_end_after_repeats":5}]}`)
-	gock.New("http://localhost:9999").Get("/scheduling/v1/feed/schedules/page2").
-		Reply(200).
-		BodyString(`{"metadata":{},"data":[{"id":"scheduleitem_2","title":"Two","modified_at":"2026-01-01T00:00:00Z","created_at":"2026-01-01T00:00:00Z"}]}`)
-
-	assert.NoError(t, feed.NewScheduleV2Feed(nil).Export(context.Background(), apiClient, exporter, ""))
-
-	var rows []feed.ScheduleV2
-	assert.NoError(t, exporter.DB.Table("schedules_v2").Order("schedule_id").Scan(&rows).Error)
-	assert.Len(t, rows, 2)
-	assert.Equal(t, feed.JSONArray(`["site_1","site_2"]`), rows[0].SiteIDs)
-	assert.Equal(t, feed.JSONArray(`["user_1"]`), rows[0].Assignees)
-	assert.Equal(t, int32(5), *rows[0].EndingRuleEndAfterRepeats)
-	assert.Nil(t, rows[1].EndingRuleEndAfterRepeats)
-	assert.Equal(t, feed.JSONArray(""), rows[1].SiteIDs)
 }

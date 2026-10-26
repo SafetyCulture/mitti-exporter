@@ -1,0 +1,26 @@
++-------------------+----------+-------------+
+|       NAME        |   TYPE   | PRIMARY KEY |
++-------------------+----------+-------------+
+| schedule_id       | TEXT     | true        |
+| description       | TEXT     |             |
+| recurrence        | TEXT     |             |
+| duration          | TEXT     |             |
+| modified_at       | datetime |             |
+| exported_at       | datetime |             |
+| from_date         | datetime |             |
+| to_date           | datetime |             |
+| start_time_hour   | INTEGER  |             |
+| start_time_minute | INTEGER  |             |
+| all_must_complete | numeric  |             |
+| status            | TEXT     |             |
+| organisation_id   | TEXT     |             |
+| timezone          | TEXT     |             |
+| can_late_submit   | numeric  |             |
+| site_id           | TEXT     |             |
+| template_id       | TEXT     |             |
+| creator_user_id   | TEXT     |             |
+| asset_id          | TEXT     |             |
+| target_type       | TEXT     |             |
+| target_ids        | TEXT     |             |
+| timezone_type     | TEXT     |             |
++-------------------+----------+-------------+

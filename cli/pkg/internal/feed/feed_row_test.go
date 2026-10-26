@@ -57,7 +57,7 @@ func TestRowFeeds_columns_should_match_row_model(t *testing.T) {
 		})
 	}
 
-	assert.Equal(t, 14, checked, "expected all the rowFeed feeds to be registered")
+	assert.Equal(t, 17, checked, "expected all the rowFeed feeds to be registered")
 }
 
 func TestJSONArray_UnmarshalJSON(t *testing.T) {
