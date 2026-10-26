@@ -2,6 +2,7 @@ package feed
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"time"
 )
@@ -48,7 +49,7 @@ type ScheduleOccurrenceV2 struct {
 func (o *ScheduleOccurrenceV2) UnmarshalJSON(b []byte) error {
 	type apiOccurrence ScheduleOccurrenceV2
 	if err := json.Unmarshal(b, (*apiOccurrence)(o)); err != nil {
-		return err
+		return fmt.Errorf("ScheduleOccurrenceV2.UnmarshalJSON: decode occurrence fields: %w", err)
 	}
 
 	var api struct {
@@ -56,7 +57,7 @@ func (o *ScheduleOccurrenceV2) UnmarshalJSON(b []byte) error {
 		AssigneeFromNames []string `json:"assignee_from_names"`
 	}
 	if err := json.Unmarshal(b, &api); err != nil {
-		return err
+		return fmt.Errorf("ScheduleOccurrenceV2.UnmarshalJSON: decode assignee fields: %w", err)
 	}
 
 	o.Note = o.WontDoNote

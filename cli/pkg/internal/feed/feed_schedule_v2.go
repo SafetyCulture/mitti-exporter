@@ -2,10 +2,13 @@ package feed
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strconv"
 	"strings"
 	"time"
+	// The Windows binaries have no time zone database, which parseDTStart needs
+	_ "time/tzdata"
 
 	"github.com/gofrs/uuid"
 )
@@ -52,7 +55,7 @@ type ScheduleV2 struct {
 func (s *ScheduleV2) UnmarshalJSON(b []byte) error {
 	type apiSchedule ScheduleV2
 	if err := json.Unmarshal(b, (*apiSchedule)(s)); err != nil {
-		return err
+		return fmt.Errorf("ScheduleV2.UnmarshalJSON: decode schedule fields: %w", err)
 	}
 
 	var api struct {
@@ -66,7 +69,7 @@ func (s *ScheduleV2) UnmarshalJSON(b []byte) error {
 		AssetIDs            []string `json:"asset_ids"`
 	}
 	if err := json.Unmarshal(b, &api); err != nil {
-		return err
+		return fmt.Errorf("ScheduleV2.UnmarshalJSON: decode api fields: %w", err)
 	}
 
 	s.Description = api.Title
@@ -92,7 +95,7 @@ func (s *ScheduleV2) UnmarshalJSON(b []byte) error {
 	if s.TargetType != "" {
 		ids, err := json.Marshal(targetIDs)
 		if err != nil {
-			return err
+			return fmt.Errorf("ScheduleV2.UnmarshalJSON: encode target ids: %w", err)
 		}
 		s.TargetIDs = JSONArray(ids)
 	}
