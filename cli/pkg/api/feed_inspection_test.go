@@ -95,3 +95,63 @@ func TestInspectionFeedExport_should_delete_items_of_deleted_inspections(t *test
 	assert.Equal(t, 1, len(items))
 	assert.Equal(t, liveAuditID+"_1", items[0].ID)
 }
+
+func TestInspectionFeedExport_backfill_from_ignores_stored_watermark(t *testing.T) {
+	exporter, err := getInmemorySQLExporter("")
+	assert.NoError(t, err)
+
+	inspectionsFeed := feed.InspectionFeed{}
+	assert.NoError(t, inspectionsFeed.CreateSchema(exporter))
+
+	// Seed a recent row so the stored incremental watermark (2026-01-01) is far
+	// newer than the backfill date below.
+	recent, _ := time.Parse(time.RFC3339, "2026-01-01T00:00:00Z")
+	err = exporter.WriteRows(&inspectionsFeed, &[]*feed.Inspection{
+		{ID: "audit_seeded_recent", ModifiedAt: recent},
+	})
+	assert.NoError(t, err)
+
+	apiClient := GetTestClient()
+	initMockFeedsSet1(apiClient.HTTPClient())
+
+	// The inspections feed request must be made from the backfill date, not
+	// from the stored watermark.
+	gock.New("http://localhost:9999").
+		Get("/feed/inspections").
+		MatchParams(map[string]string{"modified_after": "2023-06-01T00:00:00Z"}).
+		Reply(200).
+		File("mocks/set_1/feed_inspections_1.json")
+
+	gock.New("http://localhost:9999").
+		Post("/accounts/history/v1/activity_log/list").
+		Reply(http.StatusOK).
+		BodyString(`{"activities": [], "next_page_token": ""}`)
+
+	backfillFrom, _ := time.Parse(time.RFC3339, "2023-06-01T00:00:00Z")
+	inspectionsFeed = feed.InspectionFeed{
+		SkipIDs:       []string{},
+		ModifiedAfter: time.Now(),
+		BackfillFrom:  backfillFrom,
+		TemplateIDs:   []string{},
+		Archived:      "both",
+		Completed:     "both",
+		Incremental:   true,
+	}
+
+	err = inspectionsFeed.Export(context.Background(), apiClient, exporter, "")
+	assert.NoError(t, err)
+
+	var rows []feed.Inspection
+	resp := exporter.DB.Table("inspections").Scan(&rows)
+	assert.Nil(t, resp.Error)
+
+	// The seeded row (newer than the backfill date) is untouched and the older
+	// inspections are re-imported alongside it - no truncation.
+	ids := map[string]bool{}
+	for _, row := range rows {
+		ids[row.ID] = true
+	}
+	assert.True(t, ids["audit_seeded_recent"])
+	assert.True(t, ids["audit_4e28ab2cce8c44a781d376d0ac47dc92"])
+	assert.True(t, ids["audit_4d95cb4be1e7488bba5893fecd2379d2"])
+}

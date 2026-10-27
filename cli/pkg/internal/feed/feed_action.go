@@ -44,6 +44,7 @@ type Action struct {
 // ActionFeed is a representation of the actions feed
 type ActionFeed struct {
 	ModifiedAfter time.Time
+	BackfillFrom  time.Time
 	Incremental   bool
 	Limit         int
 }
@@ -122,7 +123,7 @@ func (f *ActionFeed) Export(ctx context.Context, apiClient *httpapi.Client, expo
 	}
 
 	var err error
-	f.ModifiedAfter, err = exporter.LastModifiedAt(f, f.ModifiedAfter, orgID)
+	f.ModifiedAfter, err = resolveModifiedAfter(exporter, f, f.ModifiedAfter, f.BackfillFrom, orgID)
 	if err != nil {
 		return events.NewEventErrorWithMessage(err, events.ErrorSeverityError, events.ErrorSubSystemDB, false, "unable to load modified after")
 	}

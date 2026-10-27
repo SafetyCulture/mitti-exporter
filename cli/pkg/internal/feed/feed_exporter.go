@@ -50,6 +50,7 @@ type ExporterFeedCfg struct {
 	SheqsyCompanyID                       string
 	ExportInspectionSkipIds               []string
 	ExportModifiedAfterTime               time.Time
+	ExportBackfillFromTime                time.Time
 	ExportModifiedBeforeTime              time.Time
 	ExportBlockSize                       string
 	ExportTemplateIds                     []string
@@ -251,7 +252,8 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 		e.getInspectionFeed(),
 		&UserFeed{},
 		&TemplateFeed{
-			Incremental: e.configuration.ExportIncremental,
+			Incremental:  e.configuration.ExportIncremental,
+			BackfillFrom: e.configuration.ExportBackfillFromTime,
 		},
 		&TemplatePermissionFeed{
 			Incremental: e.configuration.ExportIncremental,
@@ -276,11 +278,13 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 		},
 		&ActionFeed{
 			ModifiedAfter: e.configuration.ExportModifiedAfterTime,
+			BackfillFrom:  e.configuration.ExportBackfillFromTime,
 			Incremental:   e.configuration.ExportIncremental,
 			Limit:         e.configuration.ExportActionLimit,
 		},
 		&ActionAssigneeFeed{
 			ModifiedAfter: e.configuration.ExportModifiedAfterTime,
+			BackfillFrom:  e.configuration.ExportBackfillFromTime,
 			Incremental:   e.configuration.ExportIncremental,
 			Limit:         e.configuration.ExportActionLimit,
 		},
@@ -293,6 +297,7 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 			SkipIDs:         e.configuration.ExportInspectionSkipIds,
 			SkipFields:      e.configuration.ExportInspectionItemsSkipFields,
 			ModifiedAfter:   e.configuration.ExportModifiedAfterTime,
+			BackfillFrom:    e.configuration.ExportBackfillFromTime,
 			ModifiedBefore:  e.configuration.ExportModifiedBeforeTime,
 			BlockSize:       e.configuration.ExportBlockSize,
 			TemplateIDs:     e.configuration.ExportTemplateIds,
@@ -358,6 +363,7 @@ func (e *ExporterFeedClient) getInspectionFeed() *InspectionFeed {
 	return &InspectionFeed{
 		SkipIDs:        e.configuration.ExportInspectionSkipIds,
 		ModifiedAfter:  e.configuration.ExportModifiedAfterTime,
+		BackfillFrom:   e.configuration.ExportBackfillFromTime,
 		ModifiedBefore: e.configuration.ExportModifiedBeforeTime,
 		BlockSize:      e.configuration.ExportBlockSize,
 		TemplateIDs:    e.configuration.ExportTemplateIds,

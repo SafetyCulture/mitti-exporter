@@ -316,3 +316,29 @@ func TestBuildConfigurationWithDefaults_SetsNewFieldDefaults(t *testing.T) {
 	assert.True(t, cfg.Export.Inspection.ModifiedBefore.IsZero())
 	assert.Equal(t, "", cfg.Export.Inspection.BlockSize)
 }
+
+func TestNewConfigurationManagerFromFile_WithBackfillFrom(t *testing.T) {
+	cm, err := api.NewConfigurationManagerFromFile("", "fixtures/valid_with_backfill.yaml")
+	require.Nil(t, err)
+	require.NotNil(t, cm)
+	require.NotNil(t, cm.Configuration)
+
+	cfg := cm.Configuration
+	expected, _ := time.Parse("2006-01-02T15:04:05Z0700", "2023-06-01T00:00:00Z")
+	assert.Equal(t, expected, cfg.Export.BackfillFrom.Time)
+
+	exporterCfg := cm.Configuration.ToExporterConfig()
+	assert.Equal(t, expected, exporterCfg.ExportBackfillFromTime)
+}
+
+func TestConfigurationManager_ApplySafetyGuards_BackfillWithoutIncremental(t *testing.T) {
+	cm, err := api.NewConfigurationManagerFromFile("", "fixtures/backfill_without_incremental.yaml")
+	require.Nil(t, err)
+	require.NotNil(t, cm)
+	require.NotNil(t, cm.Configuration)
+
+	// backfill_from only applies to incremental exports; a full export already
+	// truncates and re-imports everything, so it is dropped.
+	assert.True(t, cm.Configuration.Export.BackfillFrom.IsZero())
+	assert.True(t, cm.Configuration.ToExporterConfig().ExportBackfillFromTime.IsZero())
+}
