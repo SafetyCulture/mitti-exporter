@@ -29,6 +29,7 @@ type ActionAssignee struct {
 // ActionAssigneeFeed is a representation of the action_assignees feed
 type ActionAssigneeFeed struct {
 	ModifiedAfter time.Time
+	BackfillFrom  time.Time
 	Incremental   bool
 	Limit         int
 }
@@ -119,7 +120,7 @@ func (f *ActionAssigneeFeed) Export(ctx context.Context, apiClient *httpapi.Clie
 	}
 
 	var err error
-	f.ModifiedAfter, err = exporter.LastModifiedAt(f, f.ModifiedAfter, orgID)
+	f.ModifiedAfter, err = resolveModifiedAfter(exporter, f, f.ModifiedAfter, f.BackfillFrom, orgID)
 	if err != nil {
 		return events.NewEventErrorWithMessage(err, events.ErrorSeverityError, events.ErrorSubSystemDB, false, "unable to load modified after")
 	}

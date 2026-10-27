@@ -55,6 +55,7 @@ func (LoneWorkerJob) TableName() string {
 // LoneWorkerJobFeed is a representation of the Lone Worker jobs feed.
 type LoneWorkerJobFeed struct {
 	ModifiedAfter time.Time
+	BackfillFrom  time.Time
 	Incremental   bool
 	Limit         int
 }
@@ -139,7 +140,7 @@ func (f *LoneWorkerJobFeed) Export(ctx context.Context, apiClient *httpapi.Clien
 	}
 
 	var err error
-	f.ModifiedAfter, err = exporter.LastModifiedAt(f, f.ModifiedAfter, orgID)
+	f.ModifiedAfter, err = resolveModifiedAfter(exporter, f, f.ModifiedAfter, f.BackfillFrom, orgID)
 	if err != nil {
 		return events.NewEventErrorWithMessage(err, events.ErrorSeverityError, events.ErrorSubSystemDB, false, "unable to load modified after")
 	}

@@ -1,0 +1,8 @@
+---
+access_token: "fake_token"
+api:
+  url: https://api.safetyculture.io
+export:
+  incremental: false
+  modified_after: "2023-12-31T23:59:59Z"
+  backfill_from: "2023-06-01T00:00:00Z"

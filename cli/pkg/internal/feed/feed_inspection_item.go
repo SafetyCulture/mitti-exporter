@@ -63,6 +63,7 @@ type InspectionItemFeed struct {
 	SkipIDs         []string
 	SkipFields      []string
 	ModifiedAfter   time.Time
+	BackfillFrom    time.Time
 	ModifiedBefore  time.Time
 	BlockSize       string
 	TemplateIDs     []string
@@ -307,7 +308,7 @@ func (f *InspectionItemFeed) Export(ctx context.Context, apiClient *httpapi.Clie
 	}
 
 	var err error
-	f.ModifiedAfter, err = exporter.LastModifiedAt(f, f.ModifiedAfter, orgID)
+	f.ModifiedAfter, err = resolveModifiedAfter(exporter, f, f.ModifiedAfter, f.BackfillFrom, orgID)
 	if err != nil {
 		return events.NewEventErrorWithMessage(err, events.ErrorSeverityError, events.ErrorSubSystemDB, false, "unable to load modified after")
 	}

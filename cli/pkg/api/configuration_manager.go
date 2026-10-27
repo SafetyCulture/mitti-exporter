@@ -66,6 +66,7 @@ type ExporterConfiguration struct {
 		Media         bool   `yaml:"media"`
 		MediaPath     string `yaml:"media_path"`
 		ModifiedAfter mTime  `yaml:"modified_after"`
+		BackfillFrom  mTime  `yaml:"backfill_from"`
 		TimeZone      string `yaml:"time_zone"`
 		Path          string `yaml:"path"`
 		SchemaOnly    bool   `yaml:"-"`
@@ -257,6 +258,12 @@ func (c *ConfigurationManager) ApplySafetyGuards() {
 		}
 	}
 
+	// backfill_from only has effect on incremental exports; a full export already
+	// truncates and re-imports everything, so drop it to avoid a misleading config.
+	if !c.Configuration.Export.BackfillFrom.IsZero() && !c.Configuration.Export.Incremental {
+		c.Configuration.Export.BackfillFrom = defaultCfg.Export.BackfillFrom
+	}
+
 	if !c.Configuration.Export.Inspection.ModifiedBefore.IsZero() && !c.Configuration.Export.ModifiedAfter.IsZero() {
 		if c.Configuration.Export.Inspection.ModifiedBefore.Before(c.Configuration.Export.ModifiedAfter.Time) ||
 			c.Configuration.Export.Inspection.ModifiedBefore.Equal(c.Configuration.Export.ModifiedAfter.Time) {
@@ -372,6 +379,7 @@ func (ec *ExporterConfiguration) ToExporterConfig() *feed.ExporterFeedCfg {
 		SheqsyCompanyID:                       ec.SheqsyCompanyID,
 		ExportInspectionSkipIds:               ec.Export.Inspection.SkipIds,
 		ExportModifiedAfterTime:               ec.Export.ModifiedAfter.Time,
+		ExportBackfillFromTime:                ec.Export.BackfillFrom.Time,
 		ExportModifiedBeforeTime:              ec.Export.Inspection.ModifiedBefore.Time,
 		ExportBlockSize:                       ec.Export.Inspection.BlockSize,
 		ExportTemplateIds:                     ec.Export.TemplateIds,

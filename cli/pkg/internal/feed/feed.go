@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/SafetyCulture/mitti-exporter/pkg/httpapi"
+	"github.com/SafetyCulture/mitti-exporter/pkg/logger"
 )
 
 // Feed is an interface to a data feed. It provides methods to export the data to an exporter
@@ -48,4 +49,16 @@ type Exporter interface {
 
 	SupportsUpsert() bool
 	ParameterLimit() int
+}
+
+// resolveModifiedAfter returns the modified-after cutoff for an incremental
+// run: the configured backfill date when set (ignoring the stored watermark),
+// otherwise the feed's incremental watermark.
+func resolveModifiedAfter(exporter Exporter, feed Feed, modifiedAfter, backfillFrom time.Time, orgID string) (time.Time, error) {
+	if !backfillFrom.IsZero() {
+		logger.GetLogger().With("feed", feed.Name(), "backfill_from", backfillFrom).
+			Warn("backfill_from is set, ignoring stored incremental watermark")
+		return backfillFrom, nil
+	}
+	return exporter.LastModifiedAt(feed, modifiedAfter, orgID)
 }
