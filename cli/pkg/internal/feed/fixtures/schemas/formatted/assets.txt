@@ -11,4 +11,5 @@
 | site_id        | TEXT     |             |
 | state          | TEXT     |             |
 | status_options | TEXT     |             |
+| parent_id      | TEXT     |             |
 +----------------+----------+-------------+

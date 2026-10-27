@@ -1,0 +1,21 @@
++-----------------------------+------+-------------+
+|            NAME             | TYPE | PRIMARY KEY |
++-----------------------------+------+-------------+
+| company_id                  | TEXT | true        |
+| company_name                | TEXT |             |
+| company_type_id             | TEXT |             |
+| company_type_name           | TEXT |             |
+| email                       | TEXT |             |
+| phone_number                | TEXT |             |
+| address_sub_premise         | TEXT |             |
+| address_street_number       | TEXT |             |
+| address_street              | TEXT |             |
+| address_city                | TEXT |             |
+| address_administrative_area | TEXT |             |
+| address_postal_code         | TEXT |             |
+| address_country_code        | TEXT |             |
+| external_reference_id       | TEXT |             |
+| status                      | TEXT |             |
+| created_at                  | TEXT |             |
+| modified_at                 | TEXT |             |
++-----------------------------+------+-------------+

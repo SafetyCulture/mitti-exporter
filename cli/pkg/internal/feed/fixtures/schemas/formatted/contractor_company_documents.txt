@@ -1,0 +1,14 @@
++----------------------+------+-------------+
+|         NAME         | TYPE | PRIMARY KEY |
++----------------------+------+-------------+
+| company_id           | TEXT | true        |
+| document_id          | TEXT | true        |
+| document_version     | TEXT | true        |
+| company_name         | TEXT |             |
+| document_type_id     | TEXT |             |
+| document_type_name   | TEXT |             |
+| document_status      | TEXT |             |
+| document_issue_date  | TEXT |             |
+| document_expiry_date | TEXT |             |
+| document_name        | TEXT |             |
++----------------------+------+-------------+

@@ -1,0 +1,8 @@
++------------------+------+-------------+
+|       NAME       | TYPE | PRIMARY KEY |
++------------------+------+-------------+
+| investigation_id | TEXT | true        |
+| resource_type    | TEXT | true        |
+| resource_id      | TEXT | true        |
+| linked_at        | TEXT |             |
++------------------+------+-------------+

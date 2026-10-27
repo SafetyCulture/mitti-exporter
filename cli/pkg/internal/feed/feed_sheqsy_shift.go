@@ -16,7 +16,7 @@ import (
 	"github.com/tidwall/sjson"
 )
 
-// SheqsyShift represents a user in sheqsy
+// SheqsyShift represents a shift in sheqsy
 type SheqsyShift struct {
 	ShiftID               int       `json:"shiftId" csv:"shift_id" gorm:"primarykey;column:shift_id;"`
 	EmployeeName          string    `json:"employeeName" csv:"employee_name" gorm:"column:employee_name"`
@@ -32,7 +32,7 @@ type SheqsyShift struct {
 	Departments           string    `json:"departments" csv:"departments" gorm:"column:departments"`
 }
 
-// SheqsyShiftFeed is a representation of the users feed
+// SheqsyShiftFeed is a representation of the shifts feed
 type SheqsyShiftFeed struct{}
 
 // Name is the name of the feed

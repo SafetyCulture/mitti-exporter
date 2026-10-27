@@ -1,0 +1,32 @@
++--------------------------------+----------+-------------+
+|              NAME              |   TYPE   | PRIMARY KEY |
++--------------------------------+----------+-------------+
+| id                             | TEXT     | true        |
+| code                           | TEXT     |             |
+| name                           | TEXT     |             |
+| status                         | TEXT     |             |
+| job_type_id                    | TEXT     |             |
+| job_type_name                  | TEXT     |             |
+| group_id                       | TEXT     |             |
+| user_id                        | TEXT     |             |
+| travel_started_at              | TEXT     |             |
+| started_at                     | TEXT     |             |
+| finished_at                    | TEXT     |             |
+| canceled_at                    | TEXT     |             |
+| planned_duration_minutes       | INTEGER  |             |
+| actual_duration_seconds        | INTEGER  |             |
+| panic_reason                   | TEXT     |             |
+| start_address                  | TEXT     |             |
+| start_latitude                 | REAL     |             |
+| start_longitude                | REAL     |             |
+| start_location_notes           | TEXT     |             |
+| finish_address                 | TEXT     |             |
+| finish_latitude                | REAL     |             |
+| finish_longitude               | REAL     |             |
+| finish_located_at              | TEXT     |             |
+| satellite_device_id            | TEXT     |             |
+| satellite_device_serial_number | TEXT     |             |
+| modified_at                    | datetime |             |
+| exported_at                    | datetime |             |
+| organisation_id                | TEXT     |             |
++--------------------------------+----------+-------------+

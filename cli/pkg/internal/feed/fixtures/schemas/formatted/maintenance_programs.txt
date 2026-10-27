@@ -1,0 +1,9 @@
++--------------+---------+-------------+
+|     NAME     |  TYPE   | PRIMARY KEY |
++--------------+---------+-------------+
+| id           | TEXT    | true        |
+| name         | TEXT    |             |
+| description  | TEXT    |             |
+| assets_count | INTEGER |             |
+| plans_count  | INTEGER |             |
++--------------+---------+-------------+

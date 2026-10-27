@@ -1,0 +1,11 @@
++-------------------+------+-------------+
+|       NAME        | TYPE | PRIMARY KEY |
++-------------------+------+-------------+
+| investigation_id  | TEXT | true        |
+| field_instance_id | TEXT | true        |
+| field_id          | TEXT |             |
+| title             | TEXT |             |
+| content           | TEXT |             |
+| created_at        | TEXT |             |
+| modified_at       | TEXT |             |
++-------------------+------+-------------+

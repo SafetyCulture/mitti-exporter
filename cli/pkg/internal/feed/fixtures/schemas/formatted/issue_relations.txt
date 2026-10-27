@@ -1,0 +1,9 @@
++----------------+------+-------------+
+|      NAME      | TYPE | PRIMARY KEY |
++----------------+------+-------------+
+| id             | TEXT | true        |
+| from_id        | TEXT |             |
+| rel_type       | TEXT |             |
+| rel_created_at | TEXT |             |
+| to_id          | TEXT |             |
++----------------+------+-------------+

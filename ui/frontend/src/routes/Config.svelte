@@ -125,7 +125,16 @@
 	dayjs.extend(utc);
 	dayjs.extend(timezone);
 	const minDate = dayjs().add(-1, 'year').toDate()
+	const zeroDate = "0001-01-01T00:00:00Z"
 	let date = convertStringToDate($shadowConfig["Export"]["ModifiedAfter"], selectedTimeZone);
+
+	// NEW SCHEDULES FILTERS
+	let scheduleEndDate = $shadowConfig["Export"]["Schedule"]["EndDate"] === zeroDate
+		? null
+		: dayjs($shadowConfig["Export"]["Schedule"]["EndDate"]).tz(selectedTimeZone).toDate()
+	if (!$shadowConfig["Export"]["Schedule"]["Statuses"]?.length) {
+		$shadowConfig["Export"]["Schedule"]["Statuses"] = ["ACTIVE", "PAUSED", "FINISHED"]
+	}
 
 	function generateTemplateName() {
 		let num = $shadowConfig["Export"]["TemplateIds"].length
@@ -218,6 +227,9 @@
 		if (selectedTimeZone.value !== '') {
 			$shadowConfig["Export"]["TimeZone"] = selectedTimeZone.value
 			$shadowConfig["Export"]["ModifiedAfter"] = convertDateToString(date, selectedTimeZone.value)
+			$shadowConfig["Export"]["Schedule"]["EndDate"] = scheduleEndDate === null
+				? zeroDate
+				: dayjs(scheduleEndDate).tz(selectedTimeZone.value).endOf('day').format()
 		}
 
 		$shadowConfig["Export"]["Inspection"]["Completed"] = selectedStatus.value
@@ -247,7 +259,7 @@
 	}
 
 	function convertStringToDate(input, tz) {
-		if (input === "" || input === "0001-01-01T00:00:00Z") {
+		if (input === "" || input === zeroDate) {
 			return minDate
 		}
 
@@ -497,6 +509,23 @@
 			<div class="border-weak border-round-8 m-top-4">
 				<DateInput max={new Date()} format="dd-MM-yyyy" closeOnSelection={true} bind:value={date}/>
 			</div>
+			{#if !$shadowConfig["Export"]["Tables"]?.length || $shadowConfig["Export"]["Tables"].includes("new_schedule_occurrences")}
+				<div class="label">New schedule occurrences due up to (UTC)</div>
+				<div class="border-weak border-round-8 m-top-4">
+					<DateInput max={dayjs().add(5, 'year').toDate()} format="dd-MM-yyyy" placeholder="1 month from today" closeOnSelection={true} bind:value={scheduleEndDate}/>
+				</div>
+			{/if}
+			{#if !$shadowConfig["Export"]["Tables"]?.length || $shadowConfig["Export"]["Tables"].includes("new_schedules") || $shadowConfig["Export"]["Tables"].includes("new_schedule_assignees")}
+				<div class="label">Include new schedules that are:</div>
+				<div class="m-top-4">
+					<input type="checkbox" id="schedule-active" name="schedule-active" value="ACTIVE" bind:group={$shadowConfig["Export"]["Schedule"]["Statuses"]}>
+					<label class="text-size-medium" for="schedule-active">Active</label>
+					<input type="checkbox" id="schedule-paused" name="schedule-paused" value="PAUSED" bind:group={$shadowConfig["Export"]["Schedule"]["Statuses"]}>
+					<label class="text-size-medium" for="schedule-paused">Paused</label>
+					<input type="checkbox" id="schedule-finished" name="schedule-finished" value="FINISHED" bind:group={$shadowConfig["Export"]["Schedule"]["Statuses"]}>
+					<label class="text-size-medium" for="schedule-finished">Finished</label>
+				</div>
+			{/if}
 			<div class="label">Include completed or incomplete inspections</div>
 			<div class="border-weak border-round-8 m-top-4">
 				<Select items={statusItems} clearable={false} showChevron={true} searchable={false} --border="0px" bind:value={selectedStatus} >

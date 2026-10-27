@@ -1,0 +1,21 @@
++---------------------------+------+-------------+
+|           NAME            | TYPE | PRIMARY KEY |
++---------------------------+------+-------------+
+| asset_id                  | TEXT | true        |
+| plan_id                   | TEXT | true        |
+| asset_code                | TEXT |             |
+| program_id                | TEXT |             |
+| program_name              | TEXT |             |
+| plan_name                 | TEXT |             |
+| interval_type             | TEXT |             |
+| service_status            | TEXT |             |
+| last_service_value        | TEXT |             |
+| next_service_value        | TEXT |             |
+| current_reading_value     | TEXT |             |
+| due_in_value              | TEXT |             |
+| last_service_timestamp    | TEXT |             |
+| current_reading_timestamp | TEXT |             |
+| current_reading_source    | TEXT |             |
+| interval_value            | TEXT |             |
+| interval_unit             | TEXT |             |
++---------------------------+------+-------------+

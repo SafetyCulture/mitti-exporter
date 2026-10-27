@@ -1,0 +1,22 @@
++----------------------------+---------+-------------+
+|            NAME            |  TYPE   | PRIMARY KEY |
++----------------------------+---------+-------------+
+| investigation_id           | TEXT    | true        |
+| title                      | TEXT    |             |
+| description                | TEXT    |             |
+| created_at                 | TEXT    |             |
+| modified_at                | TEXT    |             |
+| status_id                  | TEXT    |             |
+| status_title               | TEXT    |             |
+| status_badge_color         | INTEGER |             |
+| identifier_prefix          | TEXT    |             |
+| identifier_sequence        | INTEGER |             |
+| identifier_for_display     | TEXT    |             |
+| creator_id                 | TEXT    |             |
+| owner_id                   | TEXT    |             |
+| modified_by_id             | TEXT    |             |
+| category_id                | TEXT    |             |
+| category_title             | TEXT    |             |
+| category_description       | TEXT    |             |
+| category_title_at_creation | TEXT    |             |
++----------------------------+---------+-------------+

@@ -26,7 +26,8 @@
       "modified_at": "2022-11-30T01:10:05.682Z",
       "site_id": "location_664382d46bd448c8ae0f02d9dfbee252",
       "state": "ASSET_STATE_ACTIVE",
-      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000003\"|\"name\":\"Out of Service\"|\"color\":\"STATUS_BADGE_COLOR_RED\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}"
+      "status_options": "{\"id\":\"4d9f0e2a-1111-4aaa-8bbb-000000000003\"|\"name\":\"Out of Service\"|\"color\":\"STATUS_BADGE_COLOR_RED\"|\"status_group_id\":\"7c3b1a55-2222-4ccc-9ddd-000000000002\"|\"status_group_name\":\"Operational Status\"}",
+      "parent_id": "92dac48a-b8f1-4d49-918f-26cae210f16d"
     },
     {
       "id": "1a156a16-3c6a-49ec-a719-2e7a559d5f50",

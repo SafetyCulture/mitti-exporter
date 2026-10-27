@@ -2,7 +2,7 @@ module github.com/SafetyCulture/mitti-exporter
 
 go 1.25.0
 
-toolchain go1.25.12
+toolchain go1.26.10
 
 require (
 	github.com/MickStanciu/go-fn v1.8.1
@@ -83,6 +83,6 @@ require (
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
-	golang.org/x/text v0.40.0 // indirect
+	golang.org/x/text v0.41.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 )

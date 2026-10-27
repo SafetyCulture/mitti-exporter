@@ -1,4 +1,3 @@
-<!-- GSD:project-start source:PROJECT.md -->
 ## Project
 
 **Mitti Exporter Monorepo**
@@ -14,9 +13,6 @@ A monorepo consolidation of the Mitti Exporter CLI (rebranded from SafetyCulture
 - **Frontend stack**: React + Tailwind CSS + shadcn/ui with pnpm (not npm) and Vite
 - **Wails v2**: UI must remain a Wails v2 desktop application
 - **Release**: Single GitHub Release with both CLI and UI artifacts
-<!-- GSD:project-end -->
-
-<!-- GSD:stack-start source:research/STACK.md -->
 ## Technology Stack
 
 ## Recommended Stack
@@ -129,44 +125,12 @@ A monorepo consolidation of the Mitti Exporter CLI (rebranded from SafetyCulture
 - [pnpm Continuous Integration](https://pnpm.io/continuous-integration)
 - [pnpm 2025 Year in Review](https://pnpm.io/blog/2025/12/29/pnpm-in-2025)
 - [React v19 Release](https://react.dev/blog/2024/12/05/react-19)
-<!-- GSD:stack-end -->
-
-<!-- GSD:conventions-start source:CONVENTIONS.md -->
 ## Conventions
 
 Conventions not yet established. Will populate as patterns emerge during development.
-<!-- GSD:conventions-end -->
-
-<!-- GSD:architecture-start source:ARCHITECTURE.md -->
 ## Architecture
 
 Architecture not yet mapped. Follow existing patterns found in the codebase.
-<!-- GSD:architecture-end -->
-
-<!-- GSD:skills-start source:skills/ -->
 ## Project Skills
 
 No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, or `.github/skills/` with a `SKILL.md` index file.
-<!-- GSD:skills-end -->
-
-<!-- GSD:workflow-start source:GSD defaults -->
-## GSD Workflow Enforcement
-
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
-
-Use these entry points:
-- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd-debug` for investigation and bug fixing
-- `/gsd-execute-phase` for planned phase work
-
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
-<!-- GSD:workflow-end -->
-
-
-
-<!-- GSD:profile-start -->
-## Developer Profile
-
-> Profile not yet configured. Run `/gsd-profile-user` to generate your developer profile.
-> This section is managed by `generate-claude-profile` -- do not edit manually.
-<!-- GSD:profile-end -->

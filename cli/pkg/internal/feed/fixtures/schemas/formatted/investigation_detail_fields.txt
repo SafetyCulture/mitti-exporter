@@ -1,0 +1,17 @@
++--------------------------+------+-------------+
+|           NAME           | TYPE | PRIMARY KEY |
++--------------------------+------+-------------+
+| investigation_id         | TEXT | true        |
+| detail_field_instance_id | TEXT | true        |
+| detail_field_id          | TEXT |             |
+| detail_field_type        | TEXT |             |
+| title                    | TEXT |             |
+| single_select_content    | TEXT |             |
+| multi_select_content     | TEXT |             |
+| date_time_content        | TEXT |             |
+| site_content             | TEXT |             |
+| multi_site_content       | TEXT |             |
+| select_options           | TEXT |             |
+| created_at               | TEXT |             |
+| modified_at              | TEXT |             |
++--------------------------+------+-------------+

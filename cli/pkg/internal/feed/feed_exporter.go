@@ -20,6 +20,9 @@ They are called directly by the CMD from export cmd.package
 */
 const maxConcurrentGoRoutines = 10
 
+// defaultFeedLimit is the page size used by feeds that don't have a dedicated limit option
+const defaultFeedLimit = 100
+
 // MittiFeedExporter defines the basic action in regard to the exporter
 type MittiFeedExporter interface {
 	// ExportSchemas will generate the schema for SafetyCulture feeds, without downloading data
@@ -65,6 +68,8 @@ type ExporterFeedCfg struct {
 	ExportAssetLimit                      int
 	ExportCourseProgressLimit             int
 	ExportScheduleResumeDownload          bool
+	ExportScheduleEndDate                 time.Time
+	ExportScheduleStatuses                []string
 	MaxConcurrentGoRoutines               int
 }
 
@@ -322,6 +327,29 @@ func (e *ExporterFeedClient) GetFeeds() []Feed {
 		&AccountHistoryFeed{
 			Incremental: true,
 			Limit:       250,
+		},
+		NewScheduleV2Feed(e.configuration.ExportTemplateIds, e.configuration.ExportScheduleStatuses),
+		NewScheduleAssigneeV2Feed(e.configuration.ExportTemplateIds, e.configuration.ExportScheduleStatuses),
+		NewScheduleOccurrenceV2Feed(
+			e.configuration.ExportTemplateIds, e.configuration.ExportModifiedAfterTime, e.configuration.ExportScheduleEndDate,
+		),
+		NewActionFieldFeed(e.configuration.ExportActionLimit),
+		NewIssueRelationFeed(e.configuration.ExportIssueLimit),
+		NewInvestigationFeed(defaultFeedLimit),
+		NewInvestigationFieldFeed(defaultFeedLimit),
+		NewInvestigationDetailFieldFeed(defaultFeedLimit),
+		NewInvestigationRelationshipFeed(defaultFeedLimit),
+		NewContractorCompanyFeed(defaultFeedLimit),
+		NewContractorCompanyDocumentFeed(defaultFeedLimit),
+		NewContractorCompanyMemberFeed(defaultFeedLimit),
+		NewMaintenanceProgramFeed(e.configuration.ExportAssetLimit),
+		NewMaintenancePlanFeed(e.configuration.ExportAssetLimit),
+		NewAssetMaintenanceFeed(e.configuration.ExportAssetLimit),
+		NewCredentialTypeFeed(defaultFeedLimit),
+		NewCredentialFeed(defaultFeedLimit),
+		&LoneWorkerJobFeed{
+			Incremental: true,
+			Limit:       defaultFeedLimit,
 		},
 	}
 }

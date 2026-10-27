@@ -1,0 +1,8 @@
++-------------+------+-------------+
+|    NAME     | TYPE | PRIMARY KEY |
++-------------+------+-------------+
+| action_id   | TEXT | true        |
+| field_id    | TEXT | true        |
+| field_type  | TEXT |             |
+| field_value | TEXT |             |
++-------------+------+-------------+

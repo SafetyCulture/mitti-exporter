@@ -1,0 +1,9 @@
++---------------+------+-------------+
+|     NAME      | TYPE | PRIMARY KEY |
++---------------+------+-------------+
+| company_id    | TEXT | true        |
+| user_id       | TEXT | true        |
+| company_name  | TEXT |             |
+| user_username | TEXT |             |
+| user_role     | TEXT |             |
++---------------+------+-------------+

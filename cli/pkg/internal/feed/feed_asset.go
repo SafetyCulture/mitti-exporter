@@ -24,6 +24,7 @@ type Asset struct {
 	SiteID        string    `json:"site_id" csv:"site_id" gorm:"size:41"`
 	State         string    `json:"state" csv:"state"`
 	StatusOptions string    `json:"status_options" csv:"status_options"`
+	ParentID      string    `json:"parent_id" csv:"parent_id" gorm:"size:36"`
 }
 
 // AssetFeed is a representation of the assets feed
@@ -69,6 +70,7 @@ func (f *AssetFeed) Columns() []string {
 		"site_id",
 		"state",
 		"status_options",
+		"parent_id",
 	}
 }
 

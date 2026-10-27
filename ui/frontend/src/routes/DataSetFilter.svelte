@@ -8,11 +8,11 @@
 
     let data = [
         {
-            "left": { "id": "inspections", "name": "Inspections" },
-            "right": { "id": "inspection_items", "name": "Inspection Items"},
+            "left":  { "id": "inspections", "name": "Inspections"},
+            "right": { "id": "inspection_items", "name": "Inspection Items"}
         },
         {
-            "left":  { "id": "templates", "name": "Templates" },
+            "left":  { "id": "templates", "name": "Templates"},
             "right": { "id": "template_permissions", "name": "Template Permissions"}
         },
         {
@@ -25,30 +25,68 @@
         },
         {
             "left":  { "id": "users", "name": "Users"},
-            "right": { "id": "schedules", "name": "Schedules"}
-        },
-        {
-            "left":  { "id": "schedule_assignees", "name": "Schedule Assignees"},
-            "right": { "id": "schedule_occurrences", "name": "Schedule Occurrences"}
+            "right": { "id": "training_course_progresses", "name": "Training course completions"}
         },
         {
             "left":  { "id": "actions", "name": "Actions"},
-            "right": { "id": "issues", "name": "Issues"}
-
-        },
-        {
-            "left":  { "id": "action_timeline_items", "name": "Action Timeline Items"},
-            "right":  { "id": "issue_timeline_items", "name": "Issue Timeline Items"},
+            "right": { "id": "action_fields", "name": "Action Fields"}
         },
         {
             "left":  { "id": "action_assignees", "name": "Action Assignees"},
-            "right": { "id": "issue_assignees", "name": "Issue Assignees"}
+            "right": { "id": "action_timeline_items", "name": "Action Timeline Items"}
         },
         {
-            "left": { "id": "assets", "name": "Assets"},
-            "right": { "id": "training_course_progresses", "name": "Training course completions"},
+            "left":  { "id": "issues", "name": "Issues"},
+            "right": { "id": "issue_relations", "name": "Issue Relations"}
+        },
+        {
+            "left":  { "id": "issue_assignees", "name": "Issue Assignees"},
+            "right": { "id": "issue_timeline_items", "name": "Issue Timeline Items"}
+        },
+        {
+            "left":  { "id": "schedules", "name": "Schedules"},
+            "right": { "id": "new_schedules", "name": "New Schedules"}
+        },
+        {
+            "left":  { "id": "schedule_assignees", "name": "Schedule Assignees"},
+            "right": { "id": "new_schedule_assignees", "name": "New Schedule Assignees"}
+        },
+        {
+            "left":  { "id": "schedule_occurrences", "name": "Schedule Occurrences"},
+            "right": { "id": "new_schedule_occurrences", "name": "New Schedule Occurrences"}
+        },
+        {
+            "left":  { "id": "investigations", "name": "Investigations"},
+            "right": { "id": "investigation_fields", "name": "Investigation Fields"}
+        },
+        {
+            "left":  { "id": "investigation_detail_fields", "name": "Investigation Detail Fields"},
+            "right": { "id": "investigation_relationships", "name": "Investigation Relationships"}
+        },
+        {
+            "left":  { "id": "assets", "name": "Assets"},
+            "right": { "id": "assets_maintenance", "name": "Assets Maintenance"}
+        },
+        {
+            "left":  { "id": "maintenance_programs", "name": "Maintenance Programs"},
+            "right": { "id": "maintenance_plans", "name": "Maintenance Plans"}
+        },
+        {
+            "left":  { "id": "contractor_companies", "name": "Contractor Companies"},
+            "right": { "id": "contractor_company_documents", "name": "Contractor Company Documents"}
+        },
+        {
+            "left":  { "id": "contractor_company_members", "name": "Contractor Company Members"},
+            "right": null
+        },
+        {
+            "left":  { "id": "credential_types", "name": "Credential Types"},
+            "right": { "id": "credentials", "name": "Credentials"}
+        },
+        {
+            "left":  { "id": "lone_worker_jobs", "name": "Lone Worker Jobs"},
+            "right": null
         }
-
     ]
 
     function trim(org) {
@@ -126,7 +164,7 @@
         </div>
     </section>
 
-    <section class="m-top-16">
+    <section class="m-top-16 table-list">
         <div class="table-header text-gray-2">
             <div class="table-row p-horiz-8">
                 <input type="checkbox" class="checkbox-purple" on:click="{toggleBodyCheckboxes}" bind:checked={isChecked}/>
@@ -160,16 +198,39 @@
 <StatusBar/>
 
 <style>
+    /* the status bar is fixed to the bottom of the window, so keep the page above it */
     .table-filter-page {
+        --status-bar-height: 56px;
+        height: calc(100vh - var(--status-bar-height));
+        display: flex;
+        flex-direction: column;
         padding-top: var(--main-gutter-top);
         padding-left: var(--main-gutter-left);
         padding-right: var(--main-gutter-right);
     }
 
+    .table-list {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
     .table-body {
-        -ms-overflow-style: none; /* for Internet Explorer, Edge */
-        scrollbar-width: none; /* for Firefox */
-        overflow-y: hidden;
+        /* the list is longer than the window, so scroll it in place with a visible scrollbar */
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
+    .table-body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .table-body::-webkit-scrollbar-thumb {
+        background-color: #B5BBCB;
+        border-radius: 4px;
     }
 
     .table-header {

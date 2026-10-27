@@ -1,0 +1,11 @@
++----------------+------+-------------+
+|      NAME      | TYPE | PRIMARY KEY |
++----------------+------+-------------+
+| id             | TEXT | true        |
+| program_id     | TEXT |             |
+| name           | TEXT |             |
+| description    | TEXT |             |
+| interval_type  | TEXT |             |
+| interval_value | TEXT |             |
+| interval_unit  | TEXT |             |
++----------------+------+-------------+

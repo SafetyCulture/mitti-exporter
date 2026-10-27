@@ -172,6 +172,8 @@ func MapViperConfigToExporterConfiguration(v *viper.Viper, cfg *exporterAPI.Expo
 	cfg.Export.Inspection.WebReportLink = v.GetString("export.inspection.web_report_link")
 	cfg.Export.Site.IncludeDeleted = v.GetBool("export.site.include_deleted")
 	cfg.Export.Site.IncludeFullHierarchy = v.GetBool("export.site.include_full_hierarchy")
+	cfg.Export.Schedule.EndDate.Time = v.GetTime("export.schedule.end_date")
+	cfg.Export.Schedule.Statuses = v.GetStringSlice("export.schedule.statuses")
 	cfg.Export.Media = v.GetBool("export.media")
 	cfg.Export.MediaPath = v.GetString("export.media_path")
 	cfg.Export.Action.Limit = v.GetInt("export.action.limit")

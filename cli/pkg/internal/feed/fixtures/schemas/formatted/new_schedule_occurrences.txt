@@ -1,0 +1,32 @@
++------------------------+----------+-------------+
+|          NAME          |   TYPE   | PRIMARY KEY |
++------------------------+----------+-------------+
+| id                     | TEXT     | true        |
+| schedule_id            | TEXT     |             |
+| occurrence_id          | TEXT     |             |
+| template_id            | TEXT     |             |
+| organisation_id        | TEXT     |             |
+| start_time             | datetime |             |
+| due_time               | datetime |             |
+| miss_time              | datetime |             |
+| occurrence_status      | TEXT     |             |
+| audit_id               | TEXT     |             |
+| completed_at           | datetime |             |
+| exported_at            | datetime |             |
+| user_id                | TEXT     |             |
+| assignee_status        | TEXT     |             |
+| note                   | TEXT     |             |
+| assignee_type          | TEXT     |             |
+| assignee_user_id       | TEXT     |             |
+| assignee_user_name     | TEXT     |             |
+| assignee_site_id       | TEXT     |             |
+| assignee_site_name     | TEXT     |             |
+| assignee_group_id      | TEXT     |             |
+| assignee_group_name    | TEXT     |             |
+| completed_by_user_id   | TEXT     |             |
+| completed_by_user_name | TEXT     |             |
+| target_id              | TEXT     | true        |
+| target_type            | TEXT     |             |
+| target_name            | TEXT     |             |
+| wont_do_note           | TEXT     |             |
++------------------------+----------+-------------+

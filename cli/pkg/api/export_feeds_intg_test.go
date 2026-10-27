@@ -66,6 +66,7 @@ func TestIntegrationDbCreateSchema_should_create_all_schemas(t *testing.T) {
 	filesEqualish(t, "mocks/set_1/schemas/schedule_occurrences.csv", filepath.Join(exporter.ExportPath, "schedule_occurrences.csv"))
 
 	filesEqualish(t, "mocks/set_1/schemas/issues.csv", filepath.Join(exporter.ExportPath, "issues.csv"))
+	filesEqualish(t, "mocks/set_1/schemas/assets.csv", filepath.Join(exporter.ExportPath, "assets.csv"))
 }
 
 func TestIntegrationDbExportFeeds_should_export_all_feeds_to_file(t *testing.T) {
@@ -115,6 +116,7 @@ func TestIntegrationDbExportFeeds_should_export_all_feeds_to_file(t *testing.T) 
 	filesEqualish(t, "mocks/set_1/outputs/schedule_occurrences.csv", filepath.Join(exporter.ExportPath, "schedule_occurrences.csv"))
 
 	filesEqualish(t, "mocks/set_1/outputs/issues.csv", filepath.Join(exporter.ExportPath, "issues.csv"))
+	filesEqualish(t, "mocks/set_1/outputs/assets.csv", filepath.Join(exporter.ExportPath, "assets.csv"))
 }
 
 // Expectation of this test is that group_users and schedule_assignees are truncated and refreshed

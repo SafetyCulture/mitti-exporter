@@ -16,7 +16,7 @@ import (
 	"github.com/tidwall/sjson"
 )
 
-// SheqsyActivity represents a user in sheqsy
+// SheqsyActivity represents an activity in sheqsy
 type SheqsyActivity struct {
 	ActivityUID             string    `json:"activityUId" csv:"activity_uid" gorm:"primarykey;column:activity_uid;size:36"`
 	ActivityID              int       `json:"activityId" csv:"activity_id" gorm:"column:activity_id"`
@@ -44,7 +44,7 @@ type SheqsyActivity struct {
 	ExportedAt              time.Time `json:"exported_at" csv:"exported_at" gorm:"autoUpdateTime"`
 }
 
-// SheqsyActivityFeed is a representation of the users feed
+// SheqsyActivityFeed is a representation of the activities feed
 type SheqsyActivityFeed struct{}
 
 // Name is the name of the feed
