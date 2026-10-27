@@ -347,6 +347,14 @@ func (f *InspectionFeed) processDeletedInspections(ctx context.Context, apiClien
 					"unable to update database records")
 			}
 			lg.Infof("there were %d rows marked as deleted", rowsUpdated)
+
+			// Cascade: remove the items of the deleted inspections so they
+			// don't linger in the target database when refreshing incrementally.
+			if err := exporter.DeleteRowsIfExist(&InspectionItemFeed{}, "audit_id IN ?", pkeys); err != nil {
+				return events.NewEventErrorWithMessage(err,
+					events.ErrorSeverityWarning, events.ErrorSubSystemDataIntegrity, false,
+					"unable to delete inspection items of deleted inspections")
+			}
 		}
 
 		return nil

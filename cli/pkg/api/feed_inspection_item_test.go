@@ -41,6 +41,53 @@ func TestInspectionItemFeedExport_should_export_rows_to_sql_db(t *testing.T) {
 	assert.Equal(t, 5, len(rows))
 }
 
+func TestInspectionItemFeedExport_should_remove_deleted_items_on_incremental(t *testing.T) {
+	exporter, err := getInmemorySQLExporter("")
+	assert.NoError(t, err)
+
+	apiClient := GetTestClient()
+	defer resetMocks(apiClient.HTTPClient())
+	gock.InterceptClient(apiClient.HTTPClient())
+
+	initMockFeedsSet1(apiClient.HTTPClient())
+
+	inspectionItemFeed := feed.InspectionItemFeed{
+		SkipIDs:       []string{},
+		ModifiedAfter: time.Now(),
+		TemplateIDs:   []string{},
+		Archived:      "both",
+		Completed:     "both",
+		Incremental:   true,
+	}
+
+	err = inspectionItemFeed.Export(context.Background(), apiClient, exporter, "")
+	assert.NoError(t, err)
+
+	var rows []feed.InspectionItem
+	resp := exporter.DB.Table("inspection_items").Scan(&rows)
+	assert.Nil(t, resp.Error)
+	assert.Equal(t, 5, len(rows))
+
+	// Incremental refresh where the feed returns audit_1 without its first
+	// item: the stale row must be removed from the target database.
+	resetMocks(apiClient.HTTPClient())
+	gock.InterceptClient(apiClient.HTTPClient())
+	gock.New("http://localhost:9999").
+		Get("/feed/inspection_items").
+		Reply(200).
+		File("mocks/set_1/feed_inspection_items_item_deleted.json")
+
+	err = inspectionItemFeed.Export(context.Background(), apiClient, exporter, "")
+	assert.NoError(t, err)
+
+	resp = exporter.DB.Table("inspection_items").Scan(&rows)
+	assert.Nil(t, resp.Error)
+	assert.Equal(t, 4, len(rows))
+	for _, row := range rows {
+		assert.NotEqual(t, "audit_1_62444E68-49B5-48CC-9767-843CFC67425E", row.ID)
+	}
+}
+
 func TestInspectionItemFeedExport_should_ignore_media_hyper(t *testing.T) {
 	exporter, err := getInmemorySQLExporter("")
 	assert.NoError(t, err)
