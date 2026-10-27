@@ -20,6 +20,11 @@ const archDarwinArm64 string = "darwin-arm64"
 const archLinuxAmd64 string = "linux-amd64"
 const archWindows string = "windows-amd64"
 
+// UI asset identifiers; the desktop app ships a single universal binary on
+// macOS and a windows-amd64 executable, so platform selection differs from the CLI.
+const uiDarwinUniversal string = "darwin-universal"
+const uiWindowsExe string = "ui-windows-x86_64.exe"
+
 // ReleaseInfo is the details of an available release.
 type ReleaseInfo struct {
 	Version      string
@@ -43,6 +48,34 @@ func Check(currentVersion string, repoName string) *ReleaseInfo {
 
 	filteredAssets := MapAssets(res.Assets)
 	dURL, ok := filteredAssets[fmt.Sprintf("%s-%s", runtime.GOOS, runtime.GOARCH)]
+	if !ok {
+		dURL = ""
+	}
+
+	return &ReleaseInfo{
+		Version:      v,
+		ChangelogURL: res.GetHTMLURL(),
+		DownloadURL:  dURL,
+	}
+}
+
+// CheckUI returns release info of a new version of the desktop UI if available.
+// Unlike Check, it selects the desktop app assets: a single universal build on
+// macOS and the signed executable on Windows.
+func CheckUI(currentVersion string, repoName string) *ReleaseInfo {
+	ctx := context.Background()
+	g := github.NewClient(&http.Client{})
+	res, _, err := g.Repositories.GetLatestRelease(ctx, "SafetyCulture", repoName)
+	if err != nil {
+		return nil
+	}
+
+	v := res.GetTagName()
+	if VersionGreaterThanOrEqual(currentVersion, v) {
+		return nil
+	}
+
+	dURL, ok := MapUIAssets(res.Assets)[runtime.GOOS]
 	if !ok {
 		dURL = ""
 	}
@@ -79,6 +112,24 @@ func MapAssets(assets []github.ReleaseAsset) map[string]string {
 			result[archLinuxAmd64] = *asset.BrowserDownloadURL
 		case strings.Contains(*asset.Name, "windows"):
 			result[archWindows] = *asset.BrowserDownloadURL
+		}
+	}
+	return result
+}
+
+// MapUIAssets maps GOOS to the browser_download_url of the desktop UI asset
+func MapUIAssets(assets []github.ReleaseAsset) map[string]string {
+	if assets == nil {
+		return map[string]string{}
+	}
+
+	var result = make(map[string]string, 2)
+	for _, asset := range assets {
+		switch {
+		case strings.Contains(*asset.Name, uiDarwinUniversal):
+			result["darwin"] = *asset.BrowserDownloadURL
+		case strings.Contains(*asset.Name, uiWindowsExe):
+			result["windows"] = *asset.BrowserDownloadURL
 		}
 	}
 	return result

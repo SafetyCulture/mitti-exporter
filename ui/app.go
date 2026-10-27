@@ -285,7 +285,7 @@ func (a *App) ReadVersion() *VersionResponse {
 	var downloadURL string
 	var shouldUpdate bool
 
-	releaseInfo := update.Check(current, gitRepoExporter)
+	releaseInfo := update.CheckUI(current, gitRepoExporter)
 	if releaseInfo != nil {
 		latest = releaseInfo.Version
 		downloadURL = releaseInfo.DownloadURL

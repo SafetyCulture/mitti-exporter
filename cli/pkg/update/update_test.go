@@ -85,6 +85,43 @@ func TestMapAssets_WhenOnlyOneIsPresent(t *testing.T) {
 	assert.EqualValues(t, r["windows-amd64"], "https://github.com/SafetyCulture/mitti-exporter-ui/releases/download/v.0.10.2-alpha.5/exporter-windows-x86_64.tar.gz")
 }
 
+func TestMapUIAssets_WhenAllArePresent(t *testing.T) {
+	inputData := []github.ReleaseAsset{
+		{
+			Name:               pString("mitti-exporter-darwin-amd64.zip"),
+			BrowserDownloadURL: pString("https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-darwin-amd64.zip"),
+		},
+		{
+			Name:               pString("mitti-exporter-darwin-arm64.zip"),
+			BrowserDownloadURL: pString("https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-darwin-arm64.zip"),
+		},
+		{
+			Name:               pString("mitti-exporter-ui-darwin-universal.zip"),
+			BrowserDownloadURL: pString("https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-ui-darwin-universal.zip"),
+		},
+		{
+			Name:               pString("mitti-exporter-ui-windows-x86_64.exe"),
+			BrowserDownloadURL: pString("https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-ui-windows-x86_64.exe"),
+		},
+		{
+			Name:               pString("mitti-exporter-windows-x86_64.zip"),
+			BrowserDownloadURL: pString("https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-windows-x86_64.zip"),
+		},
+	}
+
+	r := update.MapUIAssets(inputData)
+	require.EqualValues(t, 2, len(r))
+	// the universal installer, not the CLI darwin builds, is selected for macOS
+	assert.EqualValues(t, r["darwin"], "https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-ui-darwin-universal.zip")
+	// the UI executable, not the CLI windows zip, is selected for windows
+	assert.EqualValues(t, r["windows"], "https://github.com/SafetyCulture/mitti-exporter/releases/download/v0.10.2/mitti-exporter-ui-windows-x86_64.exe")
+}
+
+func TestMapUIAssets_WhenEmpty(t *testing.T) {
+	r := update.MapUIAssets([]github.ReleaseAsset{})
+	assert.Empty(t, r)
+}
+
 func pString(s string) *string {
 	return &s
 }
