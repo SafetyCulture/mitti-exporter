@@ -61,6 +61,10 @@ func (o *ScheduleOccurrenceV2) UnmarshalJSON(b []byte) error {
 	}
 
 	o.Note = o.WontDoNote
+	// The feed uses another prefix than the other schedule tables, so the schedule ID is kept joinable
+	if id, found := strings.CutPrefix(o.ScheduleID, "schedule_"); found {
+		o.ScheduleID = "scheduleitem_" + id
+	}
 
 	getName := func(i int) string {
 		if i < len(api.AssigneeFromNames) {
