@@ -1,6 +1,6 @@
 module github.com/SafetyCulture/mitti-exporter-ui
 
-go 1.25.0
+go 1.25.7
 
 toolchain go1.26.10
 
@@ -15,7 +15,7 @@ require (
 require (
 	aead.dev/minisign v0.3.0 // indirect
 	git.sr.ht/~jackmordaunt/go-toast/v2 v2.0.3 // indirect
-	github.com/MickStanciu/go-fn v1.8.1 // indirect
+	github.com/MickStanciu/go-fn v1.10.1 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dghubble/sling v1.4.2 // indirect
