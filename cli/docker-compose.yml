@@ -11,7 +11,7 @@ services:
       - 5434:5432
 
   mysql:
-    image: mysql:8
+    image: mysql:26
     environment:
       MYSQL_ROOT_PASSWORD: safetyculture_exporter
       MYSQL_DATABASE: safetyculture_exporter_db
