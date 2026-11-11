@@ -72,6 +72,10 @@ type InspectionItemFeed struct {
 	Incremental     bool
 	ExportMedia     bool
 	Limit           int
+
+	// reconciledAudits tracks audits whose rows were already removed in this
+	// export run so stale rows are deleted at most once per audit.
+	reconciledAudits map[string]struct{}
 }
 
 // Name is the name of the feed
@@ -176,6 +180,32 @@ func (f *InspectionItemFeed) writeRows(ctx context.Context, exporter Exporter, r
 		skipIDs[id] = true
 	}
 
+	// On incremental refresh remove the previously exported rows of the
+	// audits in this batch so items deleted in the front end no longer linger
+	// in the target database. The feed returns the full set of items for an
+	// inspection that was modified, so they are re-inserted below. An audit is
+	// reconciled at most once per run: if pagination splits an audit across
+	// pages, its continuation rows are upserted without another delete.
+	if f.Incremental {
+		if f.reconciledAudits == nil {
+			f.reconciledAudits = map[string]struct{}{}
+		}
+		var auditIDs []string
+		for _, row := range rows {
+			if _, seen := f.reconciledAudits[row.AuditID]; !seen {
+				auditIDs = append(auditIDs, row.AuditID)
+				f.reconciledAudits[row.AuditID] = struct{}{}
+			}
+		}
+		if len(auditIDs) > 0 {
+			if err := exporter.DeleteRowsIfExist(f, "audit_id IN ?", auditIDs); err != nil {
+				return events.NewEventErrorWithMessage(err,
+					events.ErrorSeverityWarning, events.ErrorSubSystemDataIntegrity, false,
+					"unable to delete rows")
+			}
+		}
+	}
+
 	// Calculate the size of the batch we can insert into the DB at once. Column count + buffer to account for primary keys
 	batchSize := exporter.ParameterLimit() / (len(f.Columns()) + 5)
 	err := util.SplitSliceInBatch(batchSize, rows, func(batch []*InspectionItem) error {
@@ -266,6 +296,8 @@ func (f *InspectionItemFeed) CreateSchema(exporter Exporter) error {
 // Export exports the feed to the supplied exporter
 func (f *InspectionItemFeed) Export(ctx context.Context, apiClient *httpapi.Client, exporter Exporter, orgID string) error {
 	status := GetExporterStatus()
+
+	f.reconciledAudits = nil
 
 	if err := exporter.InitFeed(f, &InitFeedOptions{
 		// Delete data if incremental refresh is disabled so there is no duplicates
