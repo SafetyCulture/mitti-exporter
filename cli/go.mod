@@ -1,11 +1,11 @@
 module github.com/SafetyCulture/mitti-exporter
 
-go 1.25.0
+go 1.25.7
 
 toolchain go1.26.10
 
 require (
-	github.com/MickStanciu/go-fn v1.8.1
+	github.com/MickStanciu/go-fn v1.10.1
 	github.com/dghubble/sling v1.4.2
 	github.com/gocarina/gocsv v0.0.0-20230616125104-99d496ca653d
 	github.com/gofrs/uuid v4.4.0+incompatible

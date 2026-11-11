@@ -21,8 +21,8 @@ github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal v0.8.0/go.mod h
 github.com/AzureAD/microsoft-authentication-library-for-go v1.0.0/go.mod h1:kgDmCTgBzIEPFElEF+FK0SdjAor06dRq2Go927dnQ6o=
 github.com/AzureAD/microsoft-authentication-library-for-go v1.1.0 h1:HCc0+LpPfpCKs6LGGLAhwBARt9632unrVcI6i8s/8os=
 github.com/AzureAD/microsoft-authentication-library-for-go v1.1.0/go.mod h1:wP83P5OoQ5p6ip3ScPr0BAq0BvuPAvacpEuSzyouqAI=
-github.com/MickStanciu/go-fn v1.8.1 h1:SxRokXRVhLLwiz38c7RR5VD6uBeusBxQkGPXkuMFaQM=
-github.com/MickStanciu/go-fn v1.8.1/go.mod h1:EEU7jqIpyWeaKqjiEb8k3NU1qMMGA0yCZQUBI9WyK3s=
+github.com/MickStanciu/go-fn v1.10.1 h1:y2VAQnCjzGujG6vyzsQf2CVExWEsx8huNfZ6i7+Wx18=
+github.com/MickStanciu/go-fn v1.10.1/go.mod h1:+3nap1AQQ/lJNIdaqckfr+nGx9Z/xAYuil06o5Vglac=
 github.com/bep/debounce v1.2.1 h1:v67fRdBA9UQu2NhLFXrSg0Brw7CexQekrBwDMM8bzeY=
 github.com/bep/debounce v1.2.1/go.mod h1:H8yggRPQKLUhUoqrJC1bO2xNya7vanpDl7xR3ISbCJ0=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
