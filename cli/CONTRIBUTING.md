@@ -1,6 +1,6 @@
 # How to contribute
 
-**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+**Working on your first Pull Request?** You can learn how to contribute from [GitHub's guide to contributing to projects](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
 
 ## Guidelines for Pull Requests
 
